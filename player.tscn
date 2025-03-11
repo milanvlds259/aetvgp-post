@@ -190,12 +190,12 @@ speed = 150
 
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.321569)
-position = Vector2(-2, 26)
+position = Vector2(-2, 12)
 scale = Vector2(3.125, 1.125)
 texture = ExtResource("2_olst6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(2, -5)
+position = Vector2(2, -19)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_xh4w4")
 animation = &"light_attack"
@@ -203,16 +203,16 @@ frame = 4
 frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -14)
 offset = Vector2(96, -72)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 14)
 shape = SubResource("RectangleShape2D_7dwys")
 
 [node name="AttackHitbox" type="Area2D" parent="."]
-position = Vector2(0, 4)
+position = Vector2(0, -10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
 position = Vector2(28, 0)
