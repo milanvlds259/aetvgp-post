@@ -1,14 +1,72 @@
-[gd_scene load_steps=3 format=4 uid="uid://bvy4kv02tvj6s"]
+[gd_scene load_steps=8 format=3 uid="uid://bvy4kv02tvj6s"]
 
-[ext_resource type="TileSet" uid="uid://b7skim2dxxih" path="res://mockup.tres" id="1_slir8"]
+[ext_resource type="Texture2D" uid="uid://h0vyq6flf6th" path="res://Assets/Sprites/Protobackground.png" id="1_r5ymc"]
 [ext_resource type="PackedScene" uid="uid://ctrmudo555b1x" path="res://player.tscn" id="2_gvujc"]
+[ext_resource type="PackedScene" uid="uid://cbdemu2vstyn2" path="res://enemy.tscn" id="2_pdu3i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_he20k"]
+size = Vector2(1280.5, 235.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_duuvw"]
+size = Vector2(21, 362)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cdygp"]
+size = Vector2(1311.5, 19.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ahm5a"]
+size = Vector2(21.75, 381.25)
 
 [node name="Node2D" type="Node2D"]
+y_sort_enabled = true
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
-scale = Vector2(1.5, 1.5)
-tile_map_data = PackedByteArray("AAAAAP//AAAAAAAAAAD/////AAAAAAAAAAD//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP7/AAAAAAAAAAD///7/AAAAAAAAAAD+//7/AAAAAAAAAAD+////AAAAAAAAAAD+/wAAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAACAP//AAAAAAAAAAACAP7/AAAAAAAAAAABAP7/AAAAAAAAAAABAP3/AAAAAAAAAAABAP//AAAAAAAAAAACAAEAAAAAAAAAAAD9/wEAAAAAAAAAAAD9/wAAAAAAAAAAAAD9////AAAAAAAAAAD9//7/AAAAAAAAAAD9//3/AAAAAAAAAAD+//3/AAAAAAAAAAD///3/AAAAAAAAAAAAAP3/AAAAAAAAAAACAP3/AAAAAAAAAAADAP3/AAAAAAAAAAAEAP3/AAAAAAAAAAAEAP7/AAAAAAAAAAAEAP//AAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAADAAEAAAAAAAAAAAADAAAAAAAAAAAAAAADAP//AAAAAAAAAAADAP7/AAAAAAAAAAD8/wEAAAAAAAAAAAD8/wAAAAAAAAAAAAD8////AAAAAAAAAAD8//7/AAAAAAAAAAD8//3/AAAAAAAAAAD8/wIAAAAAAAAAAAD9/wIAAAAAAAAAAAD+/wIAAAAAAAAAAAD//wIAAAAAAAAAAAAAAAIAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAACAAIAAAAAAAAAAAABAAIAAAAAAAAAAAA=")
-tile_set = ExtResource("1_slir8")
+[node name="Background" type="Node2D" parent="."]
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("2_gvujc")]
-position = Vector2(0, -32)
+[node name="Protobackground" type="Sprite2D" parent="Background"]
+z_index = -1
+position = Vector2(28, -26)
+texture = ExtResource("1_r5ymc")
+
+[node name="Protobackground2" type="Sprite2D" parent="Background"]
+z_index = -1
+position = Vector2(668, -26)
+texture = ExtResource("1_r5ymc")
+
+[node name="WallCollisions" type="StaticBody2D" parent="Background"]
+position = Vector2(-197, 70)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(544.75, -158.25)
+shape = SubResource("RectangleShape2D_he20k")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(-105.5, -96)
+shape = SubResource("RectangleShape2D_duuvw")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(537.25, 93.25)
+shape = SubResource("RectangleShape2D_cdygp")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(1196, -88)
+shape = SubResource("RectangleShape2D_ahm5a")
+
+[node name="Enemy" parent="." instance=ExtResource("2_pdu3i")]
+position = Vector2(68, 72)
+
+[node name="Enemy2" parent="." instance=ExtResource("2_pdu3i")]
+position = Vector2(497, 90)
+
+[node name="Enemy3" parent="." instance=ExtResource("2_pdu3i")]
+position = Vector2(495, 55)
+
+[node name="Enemy4" parent="." instance=ExtResource("2_pdu3i")]
+position = Vector2(281, 78)
+
+[node name="Enemy5" parent="." instance=ExtResource("2_pdu3i")]
+position = Vector2(797, 116)
+
+[node name="Enemy6" parent="." instance=ExtResource("2_pdu3i")]
+position = Vector2(792, 33)
+
+[node name="Player" parent="." instance=ExtResource("2_gvujc")]
+position = Vector2(-197, 70)
