@@ -71,29 +71,29 @@ func reset_color() -> void:
 
 func take_damage(amount: int) -> void:
 	current_health -= amount
-    
-    # Optional: Print health for debugging
+	
+	# Optional: Print health for debugging
 	print("Enemy took " + str(amount) + " damage. Health: " + str(current_health) + "/" + str(max_health))
-    
-    # Check if enemy should die
+	
+	# Check if enemy should die
 	if current_health <= 0:
 		die()
 
 func die() -> void:
-    # Prevent multiple death processes
+	# Prevent multiple death processes
 	if dying:
 		return
-    
+	
 	dying = true
-    
-    # Disable collisions
+	
+	# Disable collisions
 	$CollisionShape2D.set_deferred("disabled", true)
 	$Hitbox/CollisionShape2D.set_deferred("disabled", true)
-    
-    # Visual feedback - fade out
+	
+	# Visual feedback - fade out
 	var tween = create_tween()
 	tween.tween_property($Sprite2D, "modulate", Color(1, 0, 0, 0), 0.5)
 	tween.tween_callback(queue_free)
-    
-    # You can also play a death sound here
-    # $DeathSound.play()
+	
+	# You can also play a death sound here
+	# $DeathSound.play()
