@@ -60,4 +60,4 @@ func _on_frame_changed():
 
 	if $AnimatedSprite2D.animation == "medium_attack":
 		var frame = $AnimatedSprite2D.frame
-		$AttackHitbox/CollisionShape2D.disabled = !(frame == 1 or frame == 3)
+		$AttackHitbox/CollisionShape2D.disabled = !(frame == 2 or frame == 3)

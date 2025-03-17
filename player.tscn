@@ -43,6 +43,10 @@ region = Rect2(192, 0, 64, 64)
 atlas = ExtResource("3_tu3q5")
 region = Rect2(256, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogbhy"]
+atlas = ExtResource("4_1up6c")
+region = Rect2(0, 0, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_sp63h"]
 atlas = ExtResource("4_1up6c")
 region = Rect2(64, 0, 64, 64)
@@ -50,10 +54,6 @@ region = Rect2(64, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_hsopb"]
 atlas = ExtResource("4_1up6c")
 region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ogbhy"]
-atlas = ExtResource("4_1up6c")
-region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y11fv"]
 atlas = ExtResource("4_1up6c")
@@ -132,13 +132,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ogbhy")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_sp63h")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hsopb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ogbhy")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_y11fv")
@@ -198,8 +198,8 @@ texture = ExtResource("2_olst6")
 position = Vector2(2, -19)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_xh4w4")
-animation = &"light_attack"
-frame = 4
+animation = &"medium_attack"
+frame = 5
 frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
