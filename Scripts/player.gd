@@ -62,10 +62,13 @@ func _on_frame_changed():
 		var frame = $AnimatedSprite2D.frame
 		$AttackHitbox.scale = Vector2(1, 1)
 		$AttackHitbox/CollisionShape2D.disabled = !(frame == 2 or frame == 3)
-		canAttack = frame >= 4 
+		#Shouldn't change variable UNLESS frame >= 4
+		if frame >= 4:
+			canAttack = true 
 
 	if $AnimatedSprite2D.animation == "medium_attack":
 		var frame = $AnimatedSprite2D.frame
 		$AttackHitbox.scale = Vector2(1.1, 1.4)
 		$AttackHitbox/CollisionShape2D.disabled = !(frame == 2 or frame == 3)
-		var canAttack = frame >= 5 
+		if frame >= 5:
+			canAttack = true

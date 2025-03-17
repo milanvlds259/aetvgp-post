@@ -3,7 +3,7 @@ extends RigidBody2D
 @export var max_health = 100
 @export var light_attack_damage = 20
 @export var medium_attack_damage = 35
-@export var light_attack_knockback = 500.0
+@export var light_attack_knockback = 400.0
 @export var medium_attack_knockback = 800.0
 @export var recovery_time = 0.5
 
@@ -41,6 +41,9 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		# Determine attack type by checking player's current animation
 		var knockback_force = light_attack_knockback
 		var damage = light_attack_damage
+		
+		#Allow The player to immediately cancel the attack
+		player.canAttack = true
 
 		if player.get_node("AnimatedSprite2D").animation == "medium_attack":
 			knockback_force = medium_attack_knockback
