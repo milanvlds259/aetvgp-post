@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var speed = 200
 var attacking: bool = false
+var canAttack: bool = true
 
 func _ready():
 	# play idle animation
@@ -13,13 +14,15 @@ func _ready():
 func _physics_process(delta):
 
 	#Handle attacks
-	if Input.is_action_just_pressed("light_attack"):
+	if Input.is_action_just_pressed("light_attack") && canAttack:
 		attacking = true
+		canAttack = false
 		$AnimatedSprite2D.play("light_attack")
 		return
 
-	if Input.is_action_just_pressed("medium_attack"):
+	if Input.is_action_just_pressed("medium_attack") && canAttack:
 		attacking = true
+		canAttack = false
 		$AnimatedSprite2D.play("medium_attack")
 		return
 
@@ -50,14 +53,23 @@ func _physics_process(delta):
 func _on_animation_finished():
 	if $AnimatedSprite2D.animation == "light_attack" or $AnimatedSprite2D.animation == "medium_attack":
 		attacking = false
+		canAttack = true
 		$AnimatedSprite2D.play("idle")
 		$AttackHitbox/CollisionShape2D.disabled = true
 
 func _on_frame_changed():
 	if $AnimatedSprite2D.animation == "light_attack":
 		var frame = $AnimatedSprite2D.frame
+		$AttackHitbox.scale = Vector2(1, 1)
 		$AttackHitbox/CollisionShape2D.disabled = !(frame == 2 or frame == 3)
+		#Shouldn't change variable UNLESS frame >= 4
+		if frame >= 4:
+			canAttack = true 
 
 	if $AnimatedSprite2D.animation == "medium_attack":
 		var frame = $AnimatedSprite2D.frame
-		$AttackHitbox/CollisionShape2D.disabled = !(frame == 1 or frame == 3)
+		$AttackHitbox.scale = Vector2(1.1, 1.4)
+		$AttackHitbox/CollisionShape2D.disabled = !(frame == 2 or frame == 3)
+		#Shouldn't change variable UNLESS frame >= 4
+		if frame >= 5:
+			canAttack = true

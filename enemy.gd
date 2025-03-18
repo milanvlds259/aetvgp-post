@@ -3,7 +3,7 @@ extends RigidBody2D
 @export var max_health = 100
 @export var light_attack_damage = 20
 @export var medium_attack_damage = 35
-@export var light_attack_knockback = 500.0
+@export var light_attack_knockback = 400.0
 @export var medium_attack_knockback = 800.0
 @export var recovery_time = 0.5
 
@@ -41,6 +41,9 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		# Determine attack type by checking player's current animation
 		var knockback_force = light_attack_knockback
 		var damage = light_attack_damage
+		
+		#Allow The player to immediately cancel the attack
+		player.canAttack = true
 
 		if player.get_node("AnimatedSprite2D").animation == "medium_attack":
 			knockback_force = medium_attack_knockback
@@ -71,29 +74,29 @@ func reset_color() -> void:
 
 func take_damage(amount: int) -> void:
 	current_health -= amount
-    
-    # Optional: Print health for debugging
+	
+	# Optional: Print health for debugging
 	print("Enemy took " + str(amount) + " damage. Health: " + str(current_health) + "/" + str(max_health))
-    
-    # Check if enemy should die
+	
+	# Check if enemy should die
 	if current_health <= 0:
 		die()
 
 func die() -> void:
-    # Prevent multiple death processes
+	# Prevent multiple death processes
 	if dying:
 		return
-    
+	
 	dying = true
-    
-    # Disable collisions
+	
+	# Disable collisions
 	$CollisionShape2D.set_deferred("disabled", true)
 	$Hitbox/CollisionShape2D.set_deferred("disabled", true)
-    
-    # Visual feedback - fade out
+	
+	# Visual feedback - fade out
 	var tween = create_tween()
 	tween.tween_property($Sprite2D, "modulate", Color(1, 0, 0, 0), 0.5)
 	tween.tween_callback(queue_free)
-    
-    # You can also play a death sound here
-    # $DeathSound.play()
+	
+	# You can also play a death sound here
+	# $DeathSound.play()

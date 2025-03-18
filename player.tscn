@@ -43,6 +43,10 @@ region = Rect2(192, 0, 64, 64)
 atlas = ExtResource("3_tu3q5")
 region = Rect2(256, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogbhy"]
+atlas = ExtResource("4_1up6c")
+region = Rect2(0, 0, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_sp63h"]
 atlas = ExtResource("4_1up6c")
 region = Rect2(64, 0, 64, 64)
@@ -50,10 +54,6 @@ region = Rect2(64, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_hsopb"]
 atlas = ExtResource("4_1up6c")
 region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ogbhy"]
-atlas = ExtResource("4_1up6c")
-region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y11fv"]
 atlas = ExtResource("4_1up6c")
@@ -132,16 +132,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ogbhy")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_sp63h")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hsopb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ogbhy")
+"texture": SubResource("AtlasTexture_y11fv")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y11fv")
+"texture": SubResource("AtlasTexture_ragls")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ragls")
@@ -181,8 +184,8 @@ animations = [{
 size = Vector2(32, 25)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2klqv"]
-radius = 8.99318
-height = 56.012
+radius = 9.41156
+height = 41.9006
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_xe545")
@@ -198,9 +201,7 @@ texture = ExtResource("2_olst6")
 position = Vector2(2, -19)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_xh4w4")
-animation = &"light_attack"
-frame = 4
-frame_progress = 1.0
+animation = &"medium_attack"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -14)
@@ -217,5 +218,6 @@ position = Vector2(0, -10)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
 position = Vector2(28, 0)
 rotation = 1.57742
+scale = Vector2(1.7, 1.7)
 shape = SubResource("CapsuleShape2D_2klqv")
 debug_color = Color(0.717647, 0.152941, 0, 0.184314)
