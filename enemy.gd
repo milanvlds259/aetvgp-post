@@ -3,8 +3,10 @@ extends RigidBody2D
 @export var max_health = 100
 @export var light_attack_damage = 20
 @export var medium_attack_damage = 35
+@export var heavy_attack_damage = 50
 @export var light_attack_knockback = 400.0
 @export var medium_attack_knockback = 800.0
+@export var heavy_attack_knockback = 1200.0
 @export var recovery_time = 0.5
 
 var current_health = 0
@@ -48,6 +50,9 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		if player.get_node("AnimatedSprite2D").animation == "medium_attack":
 			knockback_force = medium_attack_knockback
 			damage = medium_attack_damage
+		elif player.get_node("AnimatedSprite2D").animation == "heavy_attack":
+			knockback_force = heavy_attack_knockback
+			damage = heavy_attack_damage
 
 		take_damage(damage)
 		
