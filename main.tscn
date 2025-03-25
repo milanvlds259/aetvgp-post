@@ -93,12 +93,14 @@ stream = ExtResource("7_l3dg7")
 
 [node name="EnemyHurt" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("8_ehx7a")
+volume_db = -15.0
 
 [node name="HeavyAtk" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("9_0qo3k")
 
 [node name="MedAtk" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("10_at0nl")
+volume_db = -12.0
 
 [node name="LightAtk" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("11_l6rj8")
