@@ -26,6 +26,12 @@ func _physics_process(delta):
 		$AnimatedSprite2D.play("medium_attack")
 		return
 
+	if Input.is_action_just_pressed("heavy_attack") && canAttack:
+		attacking = true
+		canAttack = false
+		$AnimatedSprite2D.play("heavy_attack")
+		return
+
 	if not attacking:
 		var input_vector = Vector2(
 			Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
@@ -51,7 +57,7 @@ func _physics_process(delta):
 		move_and_slide()
 
 func _on_animation_finished():
-	if $AnimatedSprite2D.animation == "light_attack" or $AnimatedSprite2D.animation == "medium_attack":
+	if $AnimatedSprite2D.animation in ["light_attack", "medium_attack", "heavy_attack"]:
 		attacking = false
 		canAttack = true
 		$AnimatedSprite2D.play("idle")
@@ -61,6 +67,8 @@ func _on_frame_changed():
 	if $AnimatedSprite2D.animation == "light_attack":
 		var frame = $AnimatedSprite2D.frame
 		$AttackHitbox.scale = Vector2(1, 1)
+		if $AnimatedSprite2D.flip_h:
+			$AttackHitbox.scale.x = -1
 		$AttackHitbox/CollisionShape2D.disabled = !(frame == 2 or frame == 3)
 		#Shouldn't change variable UNLESS frame >= 4
 		if frame >= 4:
@@ -68,8 +76,20 @@ func _on_frame_changed():
 
 	if $AnimatedSprite2D.animation == "medium_attack":
 		var frame = $AnimatedSprite2D.frame
-		$AttackHitbox.scale = Vector2(1.1, 1.4)
+		$AttackHitbox.scale = Vector2(1.1, 1.3)
+		if $AnimatedSprite2D.flip_h:
+			$AttackHitbox.scale.x = -1
 		$AttackHitbox/CollisionShape2D.disabled = !(frame == 2 or frame == 3)
 		#Shouldn't change variable UNLESS frame >= 4
 		if frame >= 5:
+			canAttack = true
+
+	if $AnimatedSprite2D.animation == "heavy_attack":
+		var frame = $AnimatedSprite2D.frame
+		$AttackHitbox.scale = Vector2(1.4, 1.4)
+		if $AnimatedSprite2D.flip_h:
+			$AttackHitbox.scale.x = -1
+		$AttackHitbox/CollisionShape2D.disabled = !(frame == 4 or frame == 5)
+		#Shouldn't change variable UNLESS frame >= 6
+		if frame >= 6:
 			canAttack = true
