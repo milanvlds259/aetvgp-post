@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gwhgirn78dq8"
-valid=false
+uid="uid://d2gkrhlaio1lo"
+path="res://.godot/imported/environmentV2.jpg-7e91b7bd097bbdbdd91faef20b6f249e.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://Assets/Sprites/IMG_0509.png"
+source_file="res://Assets/Sprites/environmentV2.jpg"
+dest_files=["res://.godot/imported/environmentV2.jpg-7e91b7bd097bbdbdd91faef20b6f249e.ctex"]
 
 [params]
 

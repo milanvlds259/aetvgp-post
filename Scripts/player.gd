@@ -118,6 +118,16 @@ func _on_frame_changed():
 		if frame >= 6:
 			canAttack = true
 
+	if $AnimatedSprite2D.animation == "special_attack":
+		var frame = $AnimatedSprite2D.frame
+		$AttackHitbox.scale = Vector2(1.4, 1.4)
+		if $AnimatedSprite2D.flip_h:
+			$AttackHitbox.scale.x = -1
+		$AttackHitbox/CollisionShape2D.disabled = !(frame in [2, 5])
+		#Shouldn't change variable UNLESS frame >= 6
+		if frame >= 5:
+			canAttack = true
+
 func _on_animated_sprite_2d_animation_changed() -> void:
 	if $AnimatedSprite2D.animation == "light_attack":
 		await get_tree().create_timer(0.1).timeout
@@ -129,15 +139,6 @@ func _on_animated_sprite_2d_animation_changed() -> void:
 		await get_tree().create_timer(0.1).timeout
 		heavy_atk.emit()
 
-	if $AnimatedSprite2D.animation == "special_attack":
-		var frame = $AnimatedSprite2D.frame
-		$AttackHitbox.scale = Vector2(1.4, 1.4)
-		if $AnimatedSprite2D.flip_h:
-			$AttackHitbox.scale.x = -1
-		$AttackHitbox/CollisionShape2D.disabled = !(frame in [2, 5])
-		#Shouldn't change variable UNLESS frame >= 6
-		if frame >= 5:
-			canAttack = true
 
 func on_successful_hit(attack_type):
 	# Record the successful hit in our combo sequence

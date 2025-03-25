@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://bvy4kv02tvj6s"]
 
-[ext_resource type="Texture2D" uid="uid://h0vyq6flf6th" path="res://Assets/Sprites/Protobackground.png" id="1_r5ymc"]
+[ext_resource type="Texture2D" uid="uid://d2gkrhlaio1lo" path="res://Assets/Sprites/environmentV2.jpg" id="1_padtk"]
 [ext_resource type="PackedScene" uid="uid://ctrmudo555b1x" path="res://player.tscn" id="2_gvujc"]
 [ext_resource type="PackedScene" uid="uid://cbdemu2vstyn2" path="res://enemy.tscn" id="2_pdu3i"]
 [ext_resource type="Script" path="res://audio_emitter.gd" id="4_jvx85"]
@@ -32,12 +32,12 @@ y_sort_enabled = true
 [node name="Protobackground" type="Sprite2D" parent="Background"]
 z_index = -1
 position = Vector2(28, -26)
-texture = ExtResource("1_r5ymc")
+texture = ExtResource("1_padtk")
 
 [node name="Protobackground2" type="Sprite2D" parent="Background"]
 z_index = -1
 position = Vector2(668, -26)
-texture = ExtResource("1_r5ymc")
+texture = ExtResource("1_padtk")
 
 [node name="WallCollisions" type="StaticBody2D" parent="Background"]
 position = Vector2(-197, 70)
@@ -78,6 +78,7 @@ position = Vector2(792, 33)
 
 [node name="Player" parent="." instance=ExtResource("2_gvujc")]
 position = Vector2(-197, 70)
+combo_timeout = 1.0
 
 [node name="AudioEmitter" type="Node" parent="."]
 script = ExtResource("4_jvx85")
