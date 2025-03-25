@@ -4,9 +4,11 @@ extends RigidBody2D
 @export var light_attack_damage = 20
 @export var medium_attack_damage = 35
 @export var heavy_attack_damage = 50
+@export var special_attack_damage = 100
 @export var light_attack_knockback = 400.0
 @export var medium_attack_knockback = 800.0
 @export var heavy_attack_knockback = 1200.0
+@export var special_attack_knockback = 300.0
 @export var recovery_time = 0.5
 
 var current_health = 0
@@ -41,6 +43,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		var player = area.get_parent()
 		
 		# Determine attack type by checking player's current animation
+		var attack_type = "light_attack"
 		var knockback_force = light_attack_knockback
 		var damage = light_attack_damage
 		
@@ -48,14 +51,23 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		player.canAttack = true
 
 		if player.get_node("AnimatedSprite2D").animation == "medium_attack":
+			attack_type = "medium_attack"
 			knockback_force = medium_attack_knockback
 			damage = medium_attack_damage
 		elif player.get_node("AnimatedSprite2D").animation == "heavy_attack":
+			attack_type = "heavy_attack"
 			knockback_force = heavy_attack_knockback
 			damage = heavy_attack_damage
+		elif player.get_node("AnimatedSprite2D").animation == "special_attack":
+			attack_type = "special_attack"
+			knockback_force = special_attack_knockback
+			damage = special_attack_damage
 
 		take_damage(damage)
 		
+		# Register successful hit
+		player.register_hit(attack_type)
+
 		# Calculate knockback direction (away from player)
 		var knockback_direction = (global_position - player.global_position).normalized()
 		
@@ -69,7 +81,6 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		being_hit = true
 		knockback_timer = recovery_time
 		
-		# Optional: Add visual feedback for being hit
 		$Sprite2D.modulate = Color(1.0, 0.5, 0.5)  # Red tint
 		# Schedule returning to normal color
 		get_tree().create_timer(0.2).timeout.connect(reset_color)
