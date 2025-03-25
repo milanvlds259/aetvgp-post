@@ -4,6 +4,11 @@ extends CharacterBody2D
 var attacking: bool = false
 var canAttack: bool = true
 
+
+signal light_atk
+signal med_atk
+signal heavy_atk
+
 # Combo system variables
 @export var combo_timeout = 2.0  # Time window to land the next hit in seconds
 var current_combo = []  # Track the sequence of successful attacks
@@ -14,6 +19,7 @@ var combo_active = false  # Is a combo currently in progress?
 var available_combos = {
 	"special_attack": ["light_attack", "medium_attack", "heavy_attack"]
 }
+
 
 func _ready():
 	# play idle animation
@@ -111,6 +117,17 @@ func _on_frame_changed():
 		#Shouldn't change variable UNLESS frame >= 6
 		if frame >= 6:
 			canAttack = true
+
+func _on_animated_sprite_2d_animation_changed() -> void:
+	if $AnimatedSprite2D.animation == "light_attack":
+		await get_tree().create_timer(0.1).timeout
+		light_atk.emit()
+	elif $AnimatedSprite2D.animation == "medium_attack":
+		await get_tree().create_timer(0.15).timeout
+		med_atk.emit()
+	elif $AnimatedSprite2D.animation == "heavy_attack":
+		await get_tree().create_timer(0.1).timeout
+		heavy_atk.emit()
 
 	if $AnimatedSprite2D.animation == "special_attack":
 		var frame = $AnimatedSprite2D.frame

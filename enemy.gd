@@ -16,6 +16,9 @@ var being_hit = false
 var knockback_timer = 0.0
 var dying = false
 
+signal hurt
+signal death
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -89,6 +92,7 @@ func reset_color() -> void:
 	$Sprite2D.modulate = Color(1.0, 1.0, 1.0)  # Reset to white
 
 func take_damage(amount: int) -> void:
+	hurt.emit()
 	current_health -= amount
 	
 	# Optional: Print health for debugging
@@ -104,6 +108,7 @@ func die() -> void:
 		return
 	
 	dying = true
+	death.emit()
 	
 	# Disable collisions
 	$CollisionShape2D.set_deferred("disabled", true)

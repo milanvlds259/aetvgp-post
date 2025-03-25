@@ -1,8 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvy4kv02tvj6s"]
+[gd_scene load_steps=16 format=3 uid="uid://bvy4kv02tvj6s"]
 
 [ext_resource type="Texture2D" uid="uid://h0vyq6flf6th" path="res://Assets/Sprites/Protobackground.png" id="1_r5ymc"]
 [ext_resource type="PackedScene" uid="uid://ctrmudo555b1x" path="res://player.tscn" id="2_gvujc"]
 [ext_resource type="PackedScene" uid="uid://cbdemu2vstyn2" path="res://enemy.tscn" id="2_pdu3i"]
+[ext_resource type="Script" path="res://audio_emitter.gd" id="4_jvx85"]
+[ext_resource type="AudioStream" uid="uid://y8fpvq58w8nm" path="res://Assets/Audio/Retro Charge Magic 11.wav" id="5_t1x6t"]
+[ext_resource type="AudioStream" uid="uid://d0c23ra0rd4we" path="res://Assets/Audio/Retro Charge StereoUP 12.wav" id="6_dct5p"]
+[ext_resource type="AudioStream" uid="uid://3bfmw6gah7eq" path="res://Assets/Audio/Retro Explosion Short 01.wav" id="7_l3dg7"]
+[ext_resource type="AudioStream" uid="uid://d7eognnjak6j" path="res://Assets/Audio/Retro Roar LoFi 01.wav" id="8_ehx7a"]
+[ext_resource type="AudioStream" uid="uid://bqtni2skdsieq" path="res://Assets/Audio/Retro Impact LoFi 09.wav" id="9_0qo3k"]
+[ext_resource type="AudioStream" uid="uid://d3bta5s0g1aux" path="res://Assets/Audio/Retro Swooosh 02.wav" id="10_at0nl"]
+[ext_resource type="AudioStream" uid="uid://dueikwcy877tf" path="res://Assets/Audio/Retro Swooosh 07.wav" id="11_l6rj8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_he20k"]
 size = Vector2(1280.5, 235.5)
@@ -50,23 +58,49 @@ shape = SubResource("RectangleShape2D_cdygp")
 position = Vector2(1196, -88)
 shape = SubResource("RectangleShape2D_ahm5a")
 
-[node name="Enemy" parent="." instance=ExtResource("2_pdu3i")]
+[node name="Enemy" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
 position = Vector2(68, 72)
 
-[node name="Enemy2" parent="." instance=ExtResource("2_pdu3i")]
+[node name="Enemy2" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
 position = Vector2(497, 90)
 
-[node name="Enemy3" parent="." instance=ExtResource("2_pdu3i")]
+[node name="Enemy3" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
 position = Vector2(495, 55)
 
-[node name="Enemy4" parent="." instance=ExtResource("2_pdu3i")]
+[node name="Enemy4" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
 position = Vector2(281, 78)
 
-[node name="Enemy5" parent="." instance=ExtResource("2_pdu3i")]
+[node name="Enemy5" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
 position = Vector2(797, 116)
 
-[node name="Enemy6" parent="." instance=ExtResource("2_pdu3i")]
+[node name="Enemy6" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
 position = Vector2(792, 33)
 
 [node name="Player" parent="." instance=ExtResource("2_gvujc")]
 position = Vector2(-197, 70)
+
+[node name="AudioEmitter" type="Node" parent="."]
+script = ExtResource("4_jvx85")
+
+[node name="MeterFull" type="AudioStreamPlayer" parent="AudioEmitter"]
+stream = ExtResource("5_t1x6t")
+
+[node name="MeterUp" type="AudioStreamPlayer" parent="AudioEmitter"]
+stream = ExtResource("6_dct5p")
+
+[node name="EnemyDie" type="AudioStreamPlayer" parent="AudioEmitter"]
+stream = ExtResource("7_l3dg7")
+
+[node name="EnemyHurt" type="AudioStreamPlayer" parent="AudioEmitter"]
+stream = ExtResource("8_ehx7a")
+volume_db = -15.0
+
+[node name="HeavyAtk" type="AudioStreamPlayer" parent="AudioEmitter"]
+stream = ExtResource("9_0qo3k")
+
+[node name="MedAtk" type="AudioStreamPlayer" parent="AudioEmitter"]
+stream = ExtResource("10_at0nl")
+volume_db = -12.0
+
+[node name="LightAtk" type="AudioStreamPlayer" parent="AudioEmitter"]
+stream = ExtResource("11_l6rj8")

@@ -425,6 +425,8 @@ theme_override_constants/shadow_outline_size = 9
 theme_override_font_sizes/font_size = 36
 text = "Heavy"
 
+[connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
+
 [node name="Label" type="Label" parent="CanvasLayer"]
 offset_left = 956.0
 offset_top = 20.0
