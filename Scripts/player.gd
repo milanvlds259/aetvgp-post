@@ -4,6 +4,10 @@ extends CharacterBody2D
 var attacking: bool = false
 var canAttack: bool = true
 
+signal light_atk
+signal med_atk
+signal heavy_atk
+
 func _ready():
 	# play idle animation
 	$AnimatedSprite2D.play("idle")
@@ -93,3 +97,15 @@ func _on_frame_changed():
 		#Shouldn't change variable UNLESS frame >= 6
 		if frame >= 6:
 			canAttack = true
+
+
+func _on_animated_sprite_2d_animation_changed() -> void:
+	if $AnimatedSprite2D.animation == "light_attack":
+		await get_tree().create_timer(0.1).timeout
+		light_atk.emit()
+	elif $AnimatedSprite2D.animation == "medium_attack":
+		await get_tree().create_timer(0.15).timeout
+		med_atk.emit()
+	elif $AnimatedSprite2D.animation == "heavy_attack":
+		await get_tree().create_timer(0.1).timeout
+		heavy_atk.emit()
