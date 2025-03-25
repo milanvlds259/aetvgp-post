@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://ctrmudo555b1x"]
+[gd_scene load_steps=55 format=3 uid="uid://ctrmudo555b1x"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_xe545"]
 [ext_resource type="Texture2D" uid="uid://dj8sf82cs1pba" path="res://Assets/Sprites/AryanAnims/AryanIdleAnimV3.png" id="2_5a4i6"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dxvdemylolnqb" path="res://Assets/Sprites/AryanAnims/AryanLAttackAnimV1.png" id="3_tu3q5"]
 [ext_resource type="Texture2D" uid="uid://degag6c0cijyt" path="res://Assets/Sprites/AryanAnims/AryanMAttackAnimV1.png" id="4_1up6c"]
 [ext_resource type="Texture2D" uid="uid://b7b2hx6fjrg3o" path="res://Assets/Sprites/AryanAnims/AryanWalkAnimV2.png" id="5_2xnsg"]
+[ext_resource type="Texture2D" uid="uid://dadyn35p4jadi" path="res://Assets/Sprites/AryanAnims/AryanSpecialAttackAnimV1.png" id="7_vxrjo"]
 [ext_resource type="Texture2D" uid="uid://d07m8uan0yllh" path="res://Assets/Sprites/tilemap.png" id="8_sdh3v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kukd0"]
@@ -116,6 +117,30 @@ region = Rect2(256, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_32bnr"]
 atlas = ExtResource("4_1up6c")
 region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouyju"]
+atlas = ExtResource("7_vxrjo")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_laapn"]
+atlas = ExtResource("7_vxrjo")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_krcwd"]
+atlas = ExtResource("7_vxrjo")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gyqg2"]
+atlas = ExtResource("7_vxrjo")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trxiy"]
+atlas = ExtResource("7_vxrjo")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5li1"]
+atlas = ExtResource("7_vxrjo")
+region = Rect2(384, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_skgb3"]
 atlas = ExtResource("5_2xnsg")
@@ -249,6 +274,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ouyju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_laapn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_krcwd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gyqg2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trxiy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5li1")
+}],
+"loop": false,
+"name": &"special_attack",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_skgb3")
 }, {
 "duration": 1.0,
@@ -304,8 +352,8 @@ texture = ExtResource("2_olst6")
 position = Vector2(2, -19)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_xh4w4")
-animation = &"heavy_attack"
-frame = 11
+animation = &"special_attack"
+frame = 5
 frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -378,3 +426,28 @@ theme_override_font_sizes/font_size = 36
 text = "Heavy"
 
 [connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 956.0
+offset_top = 20.0
+offset_right = 1092.0
+offset_bottom = 70.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 9
+theme_override_font_sizes/font_size = 32
+text = "Combo 1"
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Label"]
+position = Vector2(174, 23)
+scale = Vector2(3.4, 3.4)
+texture = SubResource("AtlasTexture_m3wy5")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/Label"]
+position = Vector2(228, 22)
+scale = Vector2(3.4, 3.4)
+texture = SubResource("AtlasTexture_ob88u")
+
+[node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/Label"]
+position = Vector2(282, 22)
+scale = Vector2(3.4, 3.4)
+texture = SubResource("AtlasTexture_ncn4w")
