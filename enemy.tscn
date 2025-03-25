@@ -16,10 +16,10 @@ height = 41.9967
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_kkreu")
-max_health = 200
-light_attack_knockback = 60.0
-medium_attack_knockback = 75.0
-heavy_attack_knockback = 150.0
+max_health = 300
+light_attack_knockback = 45.0
+medium_attack_knockback = 56.25
+heavy_attack_knockback = 112.5
 special_attack_knockback = 20.0
 
 [node name="Shadow" type="Sprite2D" parent="."]
