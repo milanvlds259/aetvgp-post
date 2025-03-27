@@ -14,7 +14,7 @@ signal heavy_atk
 var current_combo = []  # Track the sequence of successful attacks
 var combo_timer = 0.0   # Timer to track time since last successful hit
 var combo_active = false  # Is a combo currently in progress?
-
+var last_hit_time = 0.0
 # Define available combos (can be expanded later)
 var available_combos = {
 	"special_attack": ["light_attack", "medium_attack", "heavy_attack"]
@@ -142,20 +142,21 @@ func _on_animated_sprite_2d_animation_changed() -> void:
 
 func on_successful_hit(attack_type):
 	# Record the successful hit in our combo sequence
-	current_combo.append(attack_type)
-	combo_active = true
-	combo_timer = combo_timeout  # Reset the combo timer
-    
-    # Check if we've completed a valid combo
+	if attack_type not in available_combos:
+		current_combo.append(attack_type)
+		combo_active = true
+		combo_timer = combo_timeout  # Reset the combo timer
+	
+	# Check if we've completed a valid combo
 	check_for_combo()
-    
-    # Debug print current combo
+	
+	# Debug print current combo
 	print("Current combo: ", current_combo)
 
 func check_for_combo():
 	for combo_name in available_combos:
 		var combo_sequence = available_combos[combo_name]
-        
+		
 		# Check if current combo matches the beginning of this combo sequence
 		var is_match = true
 		if current_combo.size() <= combo_sequence.size():
@@ -165,7 +166,7 @@ func check_for_combo():
 					break
 		else:
 			is_match = false
-        
+		
 		# If we've completed the full combo
 		if is_match and current_combo.size() == combo_sequence.size():
 			execute_combo(combo_name)
@@ -178,19 +179,23 @@ func reset_combo():
 
 func execute_combo(combo_name):
 	print("Executing combo: ", combo_name)
-    
-    # Example: special_attack combo execution
+	
+	# Example: special_attack combo execution
 	if combo_name == "special_attack":
-        # You would play a special animation here
-        # For now, we'll just print success and reset
+		# You would play a special animation here
+		# For now, we'll just print success and reset
 		print("SPECIAL ATTACK UNLEASHED!")
-        
-        # Add visual effects, sounds, or whatever you want for the special attack
+		
+		# Add visual effects, sounds, or whatever you want for the special attack
 		$AnimatedSprite2D.play("special_attack")
 
-        # Reset combo after execution
+		# Reset combo after execution
 		reset_combo()
 
 func register_hit(attack_type):
-    # Called from enemy.gd when a hit is successfully landed
+	var current_time = Time.get_ticks_msec()
+	if current_time - last_hit_time < 100:  # 100ms buffer
+		return
+	last_hit_time = current_time
+	# Called from enemy.gd when a hit is successfully landed
 	on_successful_hit(attack_type)
