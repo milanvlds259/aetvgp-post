@@ -95,6 +95,10 @@ func take_damage(amount: int) -> void:
 	hurt.emit()
 	current_health -= amount
 	
+	$CPUParticles2D.emitting = true
+	await get_tree().create_timer(0.1).timeout
+	$CPUParticles2D.emitting = false
+	
 	# Optional: Print health for debugging
 	print("Enemy took " + str(amount) + " damage. Health: " + str(current_health) + "/" + str(max_health))
 	

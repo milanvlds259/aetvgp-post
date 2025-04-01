@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbdemu2vstyn2"]
+[gd_scene load_steps=7 format=3 uid="uid://cbdemu2vstyn2"]
 
 [ext_resource type="Texture2D" uid="uid://bpfabj4q0vnbc" path="res://Assets/Sprites/shadow.png" id="1_j36x6"]
 [ext_resource type="Script" path="res://enemy.gd" id="1_kkreu"]
@@ -11,6 +11,12 @@ height = 42.0053
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ax4b"]
 radius = 11.0
 height = 41.9967
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m8ido"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [node name="Enemy" type="RigidBody2D"]
 gravity_scale = 0.0
@@ -46,3 +52,20 @@ position = Vector2(0, 3)
 rotation = 1.57241
 shape = SubResource("CapsuleShape2D_8ax4b")
 debug_color = Color(0.969152, 0.176741, 0, 0.42)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_m8ido")
+position = Vector2(0, -4)
+rotation = -1.5708
+skew = -0.698132
+emitting = false
+amount = 5
+lifetime = 0.5
+explosiveness = 0.8
+initial_velocity_min = 400.0
+initial_velocity_max = 400.0
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+color = Color(1, 0.482353, 0.223529, 1)
+anim_speed_min = 50.0
+anim_speed_max = 95.0
