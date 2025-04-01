@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://ctrmudo555b1x"]
+[gd_scene load_steps=62 format=3 uid="uid://ctrmudo555b1x"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_xe545"]
 [ext_resource type="Texture2D" uid="uid://dj8sf82cs1pba" path="res://Assets/Sprites/AryanAnims/AryanIdleAnimV3.png" id="2_5a4i6"]
@@ -7,8 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://dxvdemylolnqb" path="res://Assets/Sprites/AryanAnims/AryanLAttackAnimV1.png" id="3_tu3q5"]
 [ext_resource type="Texture2D" uid="uid://degag6c0cijyt" path="res://Assets/Sprites/AryanAnims/AryanMAttackAnimV1.png" id="4_1up6c"]
 [ext_resource type="Texture2D" uid="uid://b7b2hx6fjrg3o" path="res://Assets/Sprites/AryanAnims/AryanWalkAnimV2.png" id="5_2xnsg"]
-[ext_resource type="Texture2D" uid="uid://dadyn35p4jadi" path="res://Assets/Sprites/AryanAnims/AryanSpecialAttackAnimV1.png" id="7_vxrjo"]
+[ext_resource type="Texture2D" uid="uid://ctpe0paaetqpj" path="res://Assets/Sprites/AryanAnims/AryanSuperHeavyShowV1-Sheet.png" id="7_dxjrj"]
 [ext_resource type="Texture2D" uid="uid://d07m8uan0yllh" path="res://Assets/Sprites/tilemap.png" id="8_sdh3v"]
+[ext_resource type="FontFile" uid="uid://bfgsw1ulhlbu0" path="res://Assets/Silver.ttf" id="10_wbsmy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kukd0"]
 atlas = ExtResource("3_odmcm")
@@ -118,29 +119,45 @@ region = Rect2(256, 0, 64, 64)
 atlas = ExtResource("4_1up6c")
 region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ouyju"]
-atlas = ExtResource("7_vxrjo")
-region = Rect2(64, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rbyj"]
+atlas = ExtResource("7_dxjrj")
+region = Rect2(0, 0, 128, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_laapn"]
-atlas = ExtResource("7_vxrjo")
-region = Rect2(128, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfiyp"]
+atlas = ExtResource("7_dxjrj")
+region = Rect2(128, 0, 128, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_krcwd"]
-atlas = ExtResource("7_vxrjo")
-region = Rect2(192, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_atvsa"]
+atlas = ExtResource("7_dxjrj")
+region = Rect2(256, 0, 128, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gyqg2"]
-atlas = ExtResource("7_vxrjo")
-region = Rect2(256, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_llkd5"]
+atlas = ExtResource("7_dxjrj")
+region = Rect2(384, 0, 128, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_trxiy"]
-atlas = ExtResource("7_vxrjo")
-region = Rect2(320, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_6l1km"]
+atlas = ExtResource("7_dxjrj")
+region = Rect2(512, 0, 128, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w5li1"]
-atlas = ExtResource("7_vxrjo")
-region = Rect2(384, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_6w85d"]
+atlas = ExtResource("7_dxjrj")
+region = Rect2(640, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xe2qr"]
+atlas = ExtResource("7_dxjrj")
+region = Rect2(768, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klxq4"]
+atlas = ExtResource("7_dxjrj")
+region = Rect2(896, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbo4y"]
+atlas = ExtResource("7_dxjrj")
+region = Rect2(1024, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oecgd"]
+atlas = ExtResource("7_dxjrj")
+region = Rect2(1152, 0, 128, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_skgb3"]
 atlas = ExtResource("5_2xnsg")
@@ -274,22 +291,34 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ouyju")
+"texture": SubResource("AtlasTexture_1rbyj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_laapn")
+"texture": SubResource("AtlasTexture_cfiyp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_krcwd")
+"texture": SubResource("AtlasTexture_atvsa")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gyqg2")
+"texture": SubResource("AtlasTexture_llkd5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_trxiy")
+"texture": SubResource("AtlasTexture_6l1km")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w5li1")
+"texture": SubResource("AtlasTexture_6w85d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xe2qr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_klxq4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dbo4y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oecgd")
 }],
 "loop": false,
 "name": &"special_attack",
@@ -319,8 +348,9 @@ animations = [{
 "speed": 7.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7dwys"]
-size = Vector2(32, 25)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yngqx"]
+radius = 14.0
+height = 42.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2klqv"]
 radius = 7.05867
@@ -338,6 +368,18 @@ region = Rect2(425, 187, 15, 16)
 atlas = ExtResource("8_sdh3v")
 region = Rect2(442, 187, 15, 16)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmdqj"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+shadow_size = 3
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12nyy"]
+bg_color = Color(0.868904, 0, 0.0856932, 1)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_xe545")
 speed = 150
@@ -353,7 +395,7 @@ position = Vector2(2, -19)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_xh4w4")
 animation = &"special_attack"
-frame = 5
+frame = 9
 frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -363,7 +405,8 @@ zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_7dwys")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_yngqx")
 
 [node name="AttackHitbox" type="Area2D" parent="."]
 position = Vector2(0, -10)
@@ -378,7 +421,7 @@ debug_color = Color(0.717647, 0.152941, 0, 0.184314)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(52.5, 49.2)
+position = Vector2(37.9999, 555.2)
 scale = Vector2(3.4, 3.4)
 texture = SubResource("AtlasTexture_m3wy5")
 
@@ -390,11 +433,13 @@ offset_bottom = 43.4706
 scale = Vector2(0.25, 0.25)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 9
-theme_override_font_sizes/font_size = 36
+theme_override_fonts/font = ExtResource("10_wbsmy")
+theme_override_font_sizes/font_size = 64
 text = "Light"
+metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(53, 105)
+position = Vector2(38.4999, 611)
 scale = Vector2(3.4, 3.4)
 texture = SubResource("AtlasTexture_ob88u")
 
@@ -406,11 +451,12 @@ offset_bottom = 43.4706
 scale = Vector2(0.25, 0.25)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 9
-theme_override_font_sizes/font_size = 36
+theme_override_fonts/font = ExtResource("10_wbsmy")
+theme_override_font_sizes/font_size = 64
 text = "Medium"
 
 [node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(52, 161)
+position = Vector2(37.4999, 667)
 scale = Vector2(3.4, 3.4)
 texture = SubResource("AtlasTexture_ncn4w")
 
@@ -422,32 +468,45 @@ offset_bottom = 43.4706
 scale = Vector2(0.25, 0.25)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 9
-theme_override_font_sizes/font_size = 36
+theme_override_fonts/font = ExtResource("10_wbsmy")
+theme_override_font_sizes/font_size = 64
 text = "Heavy"
 
 [node name="Label" type="Label" parent="CanvasLayer"]
-offset_left = 956.0
+offset_left = 904.0
 offset_top = 20.0
-offset_right = 1092.0
+offset_right = 1210.0
 offset_bottom = 70.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 9
-theme_override_font_sizes/font_size = 32
-text = "Combo 1"
+theme_override_fonts/font = ExtResource("10_wbsmy")
+theme_override_font_sizes/font_size = 64
+text = "Combo 1    >    >"
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Label"]
-position = Vector2(174, 23)
+position = Vector2(167, 25)
 scale = Vector2(3.4, 3.4)
 texture = SubResource("AtlasTexture_m3wy5")
 
 [node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/Label"]
-position = Vector2(228, 22)
+position = Vector2(252, 25)
 scale = Vector2(3.4, 3.4)
 texture = SubResource("AtlasTexture_ob88u")
 
 [node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/Label"]
-position = Vector2(282, 22)
+position = Vector2(337, 24)
 scale = Vector2(3.4, 3.4)
 texture = SubResource("AtlasTexture_ncn4w")
+
+[node name="HPBar" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 31.0
+offset_top = 27.0
+offset_right = 304.0
+offset_bottom = 69.0
+theme_override_styles/background = SubResource("StyleBoxFlat_cmdqj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_12nyy")
+step = 1.0
+value = 50.0
+show_percentage = false
 
 [connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]

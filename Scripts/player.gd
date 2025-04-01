@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 @export var speed = 200
+@export var max_hp = 100
+var hp: int
 var attacking: bool = false
 var canAttack: bool = true
 
@@ -27,6 +29,10 @@ func _ready():
 	$AnimatedSprite2D.animation_finished.connect(_on_animation_finished)
 	$AnimatedSprite2D.frame_changed.connect(_on_frame_changed)
 	$AttackHitbox/CollisionShape2D.disabled = true
+	hp = max_hp
+
+	$CanvasLayer/HPBar.max_value = max_hp
+	$CanvasLayer/HPBar.value = hp
 
 func _physics_process(delta):
 	# Update combo timer if a combo is in progress
@@ -80,6 +86,24 @@ func _physics_process(delta):
 		velocity = input_vector * speed
 		move_and_slide()
 
+func take_damage(damage: int):
+	hp -= damage
+	$CanvasLayer/HPBar.value = hp
+	if hp <= 0:
+		die()
+
+func heal(heal_amount: int):
+	hp += heal_amount
+	if hp > max_hp:
+		hp = max_hp
+	$CanvasLayer/HPBar.value = hp
+
+func die():
+	# reset current scene
+	get_tree().reload_current_scene()
+
+
+
 func _on_animation_finished():
 	if $AnimatedSprite2D.animation in ["light_attack", "medium_attack", "heavy_attack", "special_attack"]:
 		attacking = false
@@ -123,9 +147,9 @@ func _on_frame_changed():
 		$AttackHitbox.scale = Vector2(1.4, 1.4)
 		if $AnimatedSprite2D.flip_h:
 			$AttackHitbox.scale.x = -1
-		$AttackHitbox/CollisionShape2D.disabled = !(frame in [2, 5])
+		$AttackHitbox/CollisionShape2D.disabled = !(frame in [5, 6, 7])
 		#Shouldn't change variable UNLESS frame >= 6
-		if frame >= 5:
+		if frame >= 9:
 			canAttack = true
 
 func _on_animated_sprite_2d_animation_changed() -> void:
