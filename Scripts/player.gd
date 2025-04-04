@@ -2,9 +2,12 @@ extends CharacterBody2D
 
 @export var speed = 200
 @export var max_hp = 100
+@export var meter = 10
+
 var hp: int
 var attacking: bool = false
 var canAttack: bool = true
+@onready var progress_meter = $"../CanvasLayer/Meter"
 
 
 signal light_atk
@@ -17,6 +20,7 @@ var current_combo = []  # Track the sequence of successful attacks
 var combo_timer = 0.0   # Timer to track time since last successful hit
 var combo_active = false  # Is a combo currently in progress?
 var last_hit_time = 0.0
+var meter_increase = 1.0
 # Define available combos (can be expanded later)
 var available_combos = {
 	"special_attack": ["light_attack", "medium_attack", "heavy_attack"]
@@ -30,6 +34,8 @@ func _ready():
 	$AnimatedSprite2D.frame_changed.connect(_on_frame_changed)
 	$AttackHitbox/CollisionShape2D.disabled = true
 	hp = max_hp
+	progress_meter.max_value = meter
+	progress_meter.value = meter
 
 	$CanvasLayer/HPBar.max_value = max_hp
 	$CanvasLayer/HPBar.value = hp
@@ -44,21 +50,27 @@ func _physics_process(delta):
 			print("Combo timed out!")
 
 	#Handle attacks
-	if Input.is_action_just_pressed("light_attack") && canAttack:
+	if Input.is_action_just_pressed("light_attack") && canAttack && meter >= 1:
 		attacking = true
 		canAttack = false
+		meter -= 1
+		progress_meter.value = meter
 		$AnimatedSprite2D.play("light_attack")
 		return
 
-	if Input.is_action_just_pressed("medium_attack") && canAttack:
+	if Input.is_action_just_pressed("medium_attack") && canAttack && meter >= 2:
 		attacking = true
 		canAttack = false
+		meter -= 2
+		progress_meter.value = meter
 		$AnimatedSprite2D.play("medium_attack")
 		return
 
-	if Input.is_action_just_pressed("heavy_attack") && canAttack:
+	if Input.is_action_just_pressed("heavy_attack") && canAttack && meter >= 3:
 		attacking = true
 		canAttack = false
+		meter -= 3
+		progress_meter.value = meter
 		$AnimatedSprite2D.play("heavy_attack")
 		return
 
@@ -82,10 +94,15 @@ func _physics_process(delta):
 		else:
 			if $AnimatedSprite2D.animation != "idle":
 				$AnimatedSprite2D.play("idle")
-		
+		meter_increase -= delta
+		if meter_increase <= 0:
+			if meter < progress_meter.max_value:
+				meter += 1
+			progress_meter.value = meter
+			meter_increase = 1.0
 		velocity = input_vector * speed
 		move_and_slide()
-
+		
 func take_damage(damage: int):
 	hp -= damage
 	$CanvasLayer/HPBar.value = hp
