@@ -1,6 +1,6 @@
 [gd_scene load_steps=62 format=3 uid="uid://ctrmudo555b1x"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_xe545"]
+[ext_resource type="Script" uid="uid://2e6jj5wi7duj" path="res://Scripts/player.gd" id="1_xe545"]
 [ext_resource type="Texture2D" uid="uid://dj8sf82cs1pba" path="res://Assets/Sprites/AryanAnims/AryanIdleAnimV3.png" id="2_5a4i6"]
 [ext_resource type="Texture2D" uid="uid://bpfabj4q0vnbc" path="res://Assets/Sprites/shadow.png" id="2_olst6"]
 [ext_resource type="Texture2D" uid="uid://mtwrv08pehdg" path="res://Assets/Sprites/AryanAnims/AryanHAttackAnimV1-3.png" id="3_odmcm"]

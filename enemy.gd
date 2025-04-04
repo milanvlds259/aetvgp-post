@@ -132,17 +132,17 @@ func _on_animation_finished():
 func _on_frame_changed():
 	if $AnimatedSprite2D.animation == "attack":
 		var frame = $AnimatedSprite2D.frame
-        
-        # Handle flipping the hitbox based on direction
+		
+		# Handle flipping the hitbox based on direction
 		$AttackHitbox.scale = Vector2(1, 1)
 		if $AnimatedSprite2D.flip_h:
 			$AttackHitbox.scale.x = -1
-            
-        # Enable/disable hitbox during specific attack frames
+			
+		# Enable/disable hitbox during specific attack frames
 		if frame >= 6 and frame <= 11:
 			$AttackHitbox/CollisionShape2D.disabled = false
-            
-            # Check if player is already in hitbox when it activates AND this attack hasn't hit yet
+			
+			# Check if player is already in hitbox when it activates AND this attack hasn't hit yet
 			if player != null and $AttackHitbox.overlaps_body(player) and player.has_method("take_damage") and !current_attack_hit:
 				player.take_damage(enemy_attack_damage)
 				current_attack_hit = true
@@ -156,12 +156,12 @@ func attack_player():
 	$AnimatedSprite2D.play("attack")
 
 func _on_attack_hitbox_body_entered(body):
-    # Only process if we're in attack state, hitbox is enabled, and this attack hasn't hit yet
+	# Only process if we're in attack state, hitbox is enabled, and this attack hasn't hit yet
 	if body.name == "Player" and current_state == State.ATTACK and !$AttackHitbox/CollisionShape2D.disabled and !current_attack_hit:
 		if body.has_method("take_damage"):
 			body.take_damage(enemy_attack_damage)
 			current_attack_hit = true  # Mark this attack as having hit
-            # No need to temporarily disable the hitbox, we're tracking hits instead
+			# No need to temporarily disable the hitbox, we're tracking hits instead
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if dying:

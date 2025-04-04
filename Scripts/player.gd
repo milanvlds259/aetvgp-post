@@ -94,7 +94,7 @@ func _physics_process(delta):
 		else:
 			if $AnimatedSprite2D.animation != "idle":
 				$AnimatedSprite2D.play("idle")
-		meter_increase -= delta
+		meter_increase -= delta * 1.5
 		if meter_increase <= 0:
 			if meter < progress_meter.max_value:
 				meter += 1
