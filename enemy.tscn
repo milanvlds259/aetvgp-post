@@ -1,7 +1,7 @@
 [gd_scene load_steps=40 format=3 uid="uid://cbdemu2vstyn2"]
 
 [ext_resource type="Texture2D" uid="uid://bpfabj4q0vnbc" path="res://Assets/Sprites/shadow.png" id="1_j36x6"]
-[ext_resource type="Script" path="res://enemy.gd" id="1_kkreu"]
+[ext_resource type="Script" uid="uid://4gwkydu2p3lp" path="res://enemy.gd" id="1_kkreu"]
 [ext_resource type="Texture2D" uid="uid://dit05654pgkjc" path="res://Assets/Sprites/Enemy/enemy_attack-Sheet.png" id="3_ah5kt"]
 [ext_resource type="Texture2D" uid="uid://dbwpiei37ow6e" path="res://Assets/Sprites/Enemy/Enemy_idle-Sheet.png" id="4_uqkem"]
 [ext_resource type="Texture2D" uid="uid://dwt8aitcf7gb6" path="res://Assets/Sprites/Enemy/enemy_walk-Sheet.png" id="5_rcsmx"]
