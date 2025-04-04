@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://ctrmudo555b1x"]
+[gd_scene load_steps=60 format=3 uid="uid://ctrmudo555b1x"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_xe545"]
 [ext_resource type="Texture2D" uid="uid://dj8sf82cs1pba" path="res://Assets/Sprites/AryanAnims/AryanIdleAnimV3.png" id="2_5a4i6"]
@@ -47,17 +47,9 @@ region = Rect2(896, 0, 128, 64)
 atlas = ExtResource("3_odmcm")
 region = Rect2(1024, 0, 128, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pp4tv"]
-atlas = ExtResource("3_odmcm")
-region = Rect2(1152, 0, 128, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_nsslx"]
 atlas = ExtResource("3_odmcm")
 region = Rect2(1280, 0, 128, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nw6fr"]
-atlas = ExtResource("3_odmcm")
-region = Rect2(1408, 0, 128, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nhh5p"]
 atlas = ExtResource("2_5a4i6")
@@ -214,13 +206,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_xwiji")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pp4tv")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_nsslx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nw6fr")
 }],
 "loop": false,
 "name": &"heavy_attack",
@@ -394,7 +380,7 @@ texture = ExtResource("2_olst6")
 position = Vector2(2, -19)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_xh4w4")
-animation = &"special_attack"
+animation = &"heavy_attack"
 frame = 9
 frame_progress = 1.0
 
