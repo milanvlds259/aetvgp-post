@@ -1,6 +1,6 @@
-[gd_scene load_steps=60 format=3 uid="uid://ctrmudo555b1x"]
+[gd_scene load_steps=61 format=3 uid="uid://ctrmudo555b1x"]
 
-[ext_resource type="Script" uid="uid://2e6jj5wi7duj" path="res://Scripts/player.gd" id="1_xe545"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_xe545"]
 [ext_resource type="Texture2D" uid="uid://dj8sf82cs1pba" path="res://Assets/Sprites/AryanAnims/AryanIdleAnimV3.png" id="2_5a4i6"]
 [ext_resource type="Texture2D" uid="uid://bpfabj4q0vnbc" path="res://Assets/Sprites/shadow.png" id="2_olst6"]
 [ext_resource type="Texture2D" uid="uid://mtwrv08pehdg" path="res://Assets/Sprites/AryanAnims/AryanHAttackAnimV1-3.png" id="3_odmcm"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ctpe0paaetqpj" path="res://Assets/Sprites/AryanAnims/AryanSuperHeavyShowV1-Sheet.png" id="7_dxjrj"]
 [ext_resource type="Texture2D" uid="uid://d07m8uan0yllh" path="res://Assets/Sprites/tilemap.png" id="8_sdh3v"]
 [ext_resource type="FontFile" uid="uid://bfgsw1ulhlbu0" path="res://Assets/Silver.ttf" id="10_wbsmy"]
+[ext_resource type="Texture2D" uid="uid://drcsrceiesu1q" path="res://Assets/Sprites/Meter.png" id="11_6fyrt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kukd0"]
 atlas = ExtResource("3_odmcm")
@@ -494,5 +495,14 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_12nyy")
 step = 1.0
 value = 50.0
 show_percentage = false
+
+[node name="Meter" type="TextureProgressBar" parent="CanvasLayer"]
+offset_left = 197.0
+offset_top = 521.0
+offset_right = 564.0
+offset_bottom = 801.0
+value = 100.0
+nine_patch_stretch = true
+texture_progress = ExtResource("11_6fyrt")
 
 [connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]

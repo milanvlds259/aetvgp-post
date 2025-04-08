@@ -1,9 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://bvy4kv02tvj6s"]
+[gd_scene load_steps=19 format=3 uid="uid://bvy4kv02tvj6s"]
 
 [ext_resource type="Texture2D" uid="uid://bdfcieb2j4ero" path="res://Assets/Sprites/Untitled_Artwork.png" id="1_ohr7c"]
 [ext_resource type="PackedScene" uid="uid://ctrmudo555b1x" path="res://player.tscn" id="2_gvujc"]
 [ext_resource type="PackedScene" uid="uid://cbdemu2vstyn2" path="res://enemy.tscn" id="2_pdu3i"]
-[ext_resource type="Script" uid="uid://dk058ljklcrv" path="res://audio_emitter.gd" id="4_jvx85"]
+[ext_resource type="Script" path="res://audio_emitter.gd" id="4_jvx85"]
 [ext_resource type="AudioStream" uid="uid://y8fpvq58w8nm" path="res://Assets/Audio/Retro Charge Magic 11.wav" id="5_t1x6t"]
 [ext_resource type="AudioStream" uid="uid://d0c23ra0rd4we" path="res://Assets/Audio/Retro Charge StereoUP 12.wav" id="6_dct5p"]
 [ext_resource type="AudioStream" uid="uid://3bfmw6gah7eq" path="res://Assets/Audio/Retro Explosion Short 01.wav" id="7_l3dg7"]
@@ -11,9 +11,8 @@
 [ext_resource type="AudioStream" uid="uid://bqtni2skdsieq" path="res://Assets/Audio/Retro Impact LoFi 09.wav" id="9_0qo3k"]
 [ext_resource type="AudioStream" uid="uid://d3bta5s0g1aux" path="res://Assets/Audio/Retro Swooosh 02.wav" id="10_at0nl"]
 [ext_resource type="AudioStream" uid="uid://dueikwcy877tf" path="res://Assets/Audio/Retro Swooosh 07.wav" id="11_l6rj8"]
-[ext_resource type="Texture2D" uid="uid://drcsrceiesu1q" path="res://Assets/Sprites/Meter.png" id="12_dg77c"]
-[ext_resource type="Script" uid="uid://b4ta7mj8hg24t" path="res://time_system.gd" id="13_w48qg"]
-[ext_resource type="Script" uid="uid://c4dy27btkcu2h" path="res://date_time.gd" id="14_vivmo"]
+[ext_resource type="Script" path="res://time_system.gd" id="13_w48qg"]
+[ext_resource type="Script" path="res://date_time.gd" id="14_vivmo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_he20k"]
 size = Vector2(3202.5, 235.5)
@@ -128,15 +127,6 @@ volume_db = -12.0
 stream = ExtResource("11_l6rj8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Meter" type="TextureProgressBar" parent="CanvasLayer"]
-offset_left = 197.0
-offset_top = 521.0
-offset_right = 564.0
-offset_bottom = 801.0
-value = 100.0
-nine_patch_stretch = true
-texture_progress = ExtResource("12_dg77c")
 
 [node name="TimeSystem" type="Node" parent="."]
 script = ExtResource("13_w48qg")

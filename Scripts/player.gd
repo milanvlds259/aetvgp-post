@@ -7,7 +7,6 @@ extends CharacterBody2D
 var hp: int
 var attacking: bool = false
 var canAttack: bool = true
-@onready var progress_meter = $"../CanvasLayer/Meter"
 
 
 signal light_atk
@@ -25,6 +24,7 @@ var meter_increase = 1.0
 var available_combos = {
 	"special_attack": ["light_attack", "medium_attack", "heavy_attack"]
 }
+@onready var progress_meter = $CanvasLayer/Meter
 
 
 func _ready():
