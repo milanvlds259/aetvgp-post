@@ -7,8 +7,6 @@ func _set_meter(new_meter):
 	meter = min(max_value, new_meter)
 	value = meter
 	
-	
-
 func _init_meter(_meter):
 	meter = _meter
 	max_value = meter

@@ -15,6 +15,7 @@ signal heavy_atk
 
 # Combo system variables
 @export var combo_timeout = 2.0  # Time window to land the next hit in seconds
+@export var combo1_meter_restore: int = 4
 var current_combo = []  # Track the sequence of successful attacks
 var combo_timer = 0.0   # Timer to track time since last successful hit
 var combo_active = false  # Is a combo currently in progress?
@@ -117,7 +118,7 @@ func heal(heal_amount: int):
 
 func die():
 	# reset current scene
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://title_sc.tscn")
 
 
 
@@ -240,3 +241,12 @@ func register_hit(attack_type):
 	last_hit_time = current_time
 	# Called from enemy.gd when a hit is successfully landed
 	on_successful_hit(attack_type)
+	if attack_type == "special_attack":
+		restore_meter(combo1_meter_restore)
+
+func restore_meter(amount: int):
+	meter += amount
+	if meter > progress_meter.max_value:
+		meter = progress_meter.max_value
+	progress_meter.value = meter
+	print("Meter restored by: ", amount)

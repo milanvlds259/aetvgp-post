@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://u267egaoynks"]
+
+[ext_resource type="Texture2D" uid="uid://boqw0thb3aiu1" path="res://Assets/Sprites/POST_Title.png" id="1_2jdfu"]
+[ext_resource type="Script" uid="uid://b6rcb512s3xfs" path="res://title_screen.gd" id="1_25nwx"]
+[ext_resource type="PackedScene" uid="uid://bvy4kv02tvj6s" path="res://main.tscn" id="2_5h8wq"]
+[ext_resource type="FontFile" uid="uid://bfgsw1ulhlbu0" path="res://Assets/Silver.ttf" id="2_25nwx"]
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource("1_25nwx")
+main_scene = ExtResource("2_5h8wq")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PostTitle" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(619, 182)
+scale = Vector2(0.325, 0.326042)
+texture = ExtResource("1_2jdfu")
+
+[node name="PlayButton" type="Button" parent="CanvasLayer"]
+offset_left = 545.0
+offset_top = 419.0
+offset_right = 725.0
+offset_bottom = 511.0
+theme_override_constants/outline_size = 5
+theme_override_constants/line_spacing = 295
+theme_override_fonts/font = ExtResource("2_25nwx")
+theme_override_font_sizes/font_size = 76
+text = "PLAY !"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 634.0
+offset_top = 340.0
+offset_right = 1014.0
+offset_bottom = 398.0
+theme_override_fonts/font = ExtResource("2_25nwx")
+theme_override_font_sizes/font_size = 51
+text = "a game by The Chain Links"

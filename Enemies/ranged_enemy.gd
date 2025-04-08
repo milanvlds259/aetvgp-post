@@ -1,20 +1,22 @@
 extends RigidBody2D
 
-@export var max_health = 100
-@export var light_attack_damage = 20
-@export var medium_attack_damage = 35
-@export var heavy_attack_damage = 50
-@export var special_attack_damage = 100
+@export var max_health = 80
+@export var light_attack_damage = 15
+@export var medium_attack_damage = 25
+@export var heavy_attack_damage = 40
+@export var special_attack_damage = 80
 @export var light_attack_knockback = 400.0
 @export var medium_attack_knockback = 800.0
 @export var heavy_attack_knockback = 1200.0
 @export var special_attack_knockback = 300.0
 @export var recovery_time = 0.5
 
-@export var movement_speed = 50
-@export var enemy_attack_damage = 25
+@export var movement_speed = 60
+@export var run_away_speed = 100
+@export var projectile_damage = 15
+@export var projectile_scene: PackedScene = preload("res://Enemies/enemy_projectile.tscn")
 
-enum State {IDLE, CHASE, ATTACK}
+enum State {IDLE, CHASE, SHOOT, PANIC, ATTACK}
 var current_state = State.IDLE
 
 var current_health = 0
@@ -22,13 +24,11 @@ var being_hit = false
 var knockback_timer = 0.0
 var dying = false
 var player = null
-var can_attack = true
+var can_shoot = true
+var shoot_cooldown = 2.0  # Seconds between shots
 
 signal hurt
 signal death
-
-var current_attack_hit = false
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -38,19 +38,18 @@ func _ready() -> void:
 
 	$PlayerDetection.body_entered.connect(_on_player_detected)
 	$PlayerDetection.body_exited.connect(_on_player_exited)
-
-	$AttackRange.body_entered.connect(_on_attack_range_body_entered)
-	$AttackRange.body_exited.connect(_on_attack_range_body_exited)
+	
+	$ShootingZone.body_entered.connect(_on_shooting_zone_body_entered)
+	$ShootingZone.body_exited.connect(_on_shooting_zone_body_exited)
+	
+	$PanicZone.body_entered.connect(_on_panic_zone_body_entered)
+	$PanicZone.body_exited.connect(_on_panic_zone_body_exited)
 
 	$AttackCooldown.timeout.connect(_on_attack_cooldown_timeout)
-
 	$AnimatedSprite2D.animation_finished.connect(_on_animation_finished)
 	$AnimatedSprite2D.frame_changed.connect(_on_frame_changed)
 
 	$AnimatedSprite2D.play("idle")
-	$AttackHitbox/CollisionShape2D.disabled = true
-
-	$AttackHitbox.body_entered.connect(_on_attack_hitbox_body_entered)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -61,107 +60,154 @@ func _process(delta: float) -> void:
 			being_hit = false
 			# Reset to normal physics mode after recovery
 			linear_damp = 3.0
-			if player != null:
-				current_state = State.CHASE
-			else:
-				current_state = State.IDLE
-				$AnimatedSprite2D.play("idle")
+			update_state()
 	elif !dying:
 		match current_state:
 			State.IDLE:
 				if $AnimatedSprite2D.animation != "idle":
 					$AnimatedSprite2D.play("idle")
 				linear_velocity = Vector2.ZERO
+				
 			State.CHASE:
 				# Chase the player
 				if player != null:
 					var direction = (player.global_position - global_position).normalized()
-
-					if direction.x > 0:
-						$AnimatedSprite2D.flip_h = true
-						$AttackHitbox.scale.x = -1
-						$AttackRange.scale.x = -1
-					else:
-						$AnimatedSprite2D.flip_h = false
-						$AttackHitbox.scale.x = 1
-						$AttackRange.scale.x = 1
-
+					update_facing_direction(direction)
 					linear_velocity = direction * movement_speed
-					$AnimatedSprite2D.play("walk")
-
+					if $AnimatedSprite2D.animation != "walk":
+						$AnimatedSprite2D.play("walk")
+						
+			State.SHOOT:
+				# Stand still and shoot at the player
+				if player != null:
+					var direction = (player.global_position - global_position).normalized()
+					update_facing_direction(direction)
+					linear_velocity = Vector2.ZERO
+					
+					# Shoot periodically
+					if can_shoot and !$AnimatedSprite2D.animation == "attack":
+						shoot_at_player()
+						
+			State.PANIC:
+				# Run away from the player
+				if player != null:
+					var direction = (global_position - player.global_position).normalized()
+					update_facing_direction(-direction)  # Flip the sprite in the moving direction
+					linear_velocity = direction * run_away_speed
+					if $AnimatedSprite2D.animation != "walk":
+						$AnimatedSprite2D.play("walk")
+			
 			State.ATTACK:
+				if $AnimatedSprite2D.animation != "attack":
+					$AnimatedSprite2D.play("attack")
 				linear_velocity = Vector2.ZERO
+
+# Updates the enemy state based on player position
+func update_state():
+	if dying or being_hit:
+		return
+		
+	# State priorities (from highest to lowest):
+	# 1. Panic Zone
+	# 2. Shooting Zone
+	# 3. Detection Zone
+	if player != null:
+		if $PanicZone.overlaps_body(player):
+			current_state = State.PANIC
+		elif $ShootingZone.overlaps_body(player):
+			current_state = State.SHOOT
+		elif $PlayerDetection.overlaps_body(player):
+			current_state = State.CHASE
+		else:
+			current_state = State.IDLE
+
+func update_facing_direction(direction):
+	if direction.x > 0:
+		$AnimatedSprite2D.flip_h = true
+	else:
+		$AnimatedSprite2D.flip_h = false
 
 func _on_player_detected(body):
 	if body.name == "Player" and !dying and !being_hit:
 		player = body
-		current_state = State.CHASE
+		if current_state == State.IDLE:  # Only change state if not in a higher priority state
+			current_state = State.CHASE
 
 func _on_player_exited(body):
 	if body.name == "Player" and !dying:
-		player = null
-		current_state = State.IDLE
+		if !$ShootingZone.overlaps_body(body) and !$PanicZone.overlaps_body(body):
+			player = null
+			current_state = State.IDLE
 
-func _on_attack_range_body_entered(body):
+func _on_shooting_zone_body_entered(body):
 	if body.name == "Player" and !dying and !being_hit:
-		# Only change to attack state if we can attack and aren't already attacking
-		if can_attack and current_state != State.ATTACK:
-			current_state = State.ATTACK
-			attack_player()
+		player = body
+		if current_state != State.PANIC:  # Only change if not in panic mode
+			current_state = State.SHOOT
 
-func _on_attack_range_body_exited(body):
+func _on_shooting_zone_body_exited(body):
+	if body.name == "Player" and !dying:
+		update_state()  # Reevaluate state based on player position
+
+func _on_panic_zone_body_entered(body):
 	if body.name == "Player" and !dying and !being_hit:
-		# If we're in attack state, remain there until animation finishes
-		# The animation finished signal will handle the state transition back to CHASE
-		pass
+		player = body
+		current_state = State.PANIC  # Highest priority state
+
+func _on_panic_zone_body_exited(body):
+	if body.name == "Player" and !dying:
+		update_state()  # Reevaluate state based on player position
 
 func _on_attack_cooldown_timeout():
-	can_attack = true
+	can_shoot = true
 
 func _on_animation_finished():
 	if $AnimatedSprite2D.animation == "attack" and !dying and !being_hit:
-		$AttackHitbox/CollisionShape2D.disabled = true
-
-		if player != null:
-			current_state = State.CHASE
-			$AnimatedSprite2D.play("walk")
-		else:
-			current_state = State.IDLE
-			$AnimatedSprite2D.play("idle")
-
+		update_state()
+		
 func _on_frame_changed():
 	if $AnimatedSprite2D.animation == "attack":
 		var frame = $AnimatedSprite2D.frame
 		
-		# Handle flipping the hitbox based on direction
-		$AttackHitbox.scale = Vector2(1, 1)
-		if $AnimatedSprite2D.flip_h:
-			$AttackHitbox.scale.x = -1
-			
-		# Enable/disable hitbox during specific attack frames
-		if frame >= 6 and frame <= 11:
-			$AttackHitbox/CollisionShape2D.disabled = false
-			
-			# Check if player is already in hitbox when it activates AND this attack hasn't hit yet
-			if player != null and $AttackHitbox.overlaps_body(player) and player.has_method("take_damage") and !current_attack_hit:
-				player.take_damage(enemy_attack_damage)
-				current_attack_hit = true
-		else:
-			$AttackHitbox/CollisionShape2D.disabled = true
+		# Fire the projectile at a specific frame (adjust as needed for your animation)
+		if frame == 8:  # Middle of the attack animation
+			fire_projectile()
 
-func attack_player():
-	can_attack = false
-	current_attack_hit = false
+func shoot_at_player():
+	can_shoot = false
+	current_state = State.ATTACK
+	$AttackCooldown.wait_time = shoot_cooldown
 	$AttackCooldown.start()
 	$AnimatedSprite2D.play("attack")
 
-func _on_attack_hitbox_body_entered(body):
-	# Only process if we're in attack state, hitbox is enabled, and this attack hasn't hit yet
-	if body.name == "Player" and current_state == State.ATTACK and !$AttackHitbox/CollisionShape2D.disabled and !current_attack_hit:
-		if body.has_method("take_damage"):
-			body.take_damage(enemy_attack_damage)
-			current_attack_hit = true  # Mark this attack as having hit
-			# No need to temporarily disable the hitbox, we're tracking hits instead
+func fire_projectile():
+	if player == null or dying:
+		return
+		
+	# Create projectile instance
+	var projectile = projectile_scene.instantiate()
+	
+	# Position the projectile at the enemy
+	var spawn_position = global_position
+	# Offset the projectile position to appear from the enemy's front
+	var direction = (player.global_position - global_position).normalized()
+	spawn_position += direction * 20
+	
+	projectile.global_position = spawn_position
+	
+	# Add the projectile to the scene
+	get_tree().get_root().add_child(projectile)
+	
+	# Setup projectile properties
+	# We need to add a script to projectile.tscn to handle movement and collisions
+	if projectile.has_method("initialize"):
+		projectile.initialize(direction, projectile_damage, 300.0)  # direction, damage, speed
+	
+	# Play animation
+	projectile.get_node("AnimatedSprite2D").play("default")
+	
+	# Play sound effect if you have one
+	# $ShootSound.play()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if dying:
@@ -212,7 +258,6 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		knockback_timer = recovery_time
 		
 		$AnimatedSprite2D.modulate = Color(1.0, 0.5, 0.5)  # Red tint
-		# Schedule returning to normal color
 		get_tree().create_timer(0.2).timeout.connect(reset_color)
 
 func reset_color() -> void:
@@ -225,9 +270,6 @@ func take_damage(amount: int) -> void:
 	$CPUParticles2D.emitting = true
 	await get_tree().create_timer(0.1).timeout
 	$CPUParticles2D.emitting = false
-	
-	# Optional: Print health for debugging
-	print("Enemy took " + str(amount) + " damage. Health: " + str(current_health) + "/" + str(max_health))
 	
 	# Check if enemy should die
 	if current_health <= 0:
@@ -249,6 +291,3 @@ func die() -> void:
 	var tween = create_tween()
 	tween.tween_property($AnimatedSprite2D, "modulate", Color(1, 0, 0, 0), 0.5)
 	tween.tween_callback(queue_free)
-	
-	# You can also play a death sound here
-	# $DeathSound.play()

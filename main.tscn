@@ -1,9 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://bvy4kv02tvj6s"]
+[gd_scene load_steps=21 format=3 uid="uid://bvy4kv02tvj6s"]
 
 [ext_resource type="Texture2D" uid="uid://bdfcieb2j4ero" path="res://Assets/Sprites/Untitled_Artwork.png" id="1_ohr7c"]
 [ext_resource type="PackedScene" uid="uid://ctrmudo555b1x" path="res://player.tscn" id="2_gvujc"]
-[ext_resource type="PackedScene" uid="uid://cbdemu2vstyn2" path="res://enemy.tscn" id="2_pdu3i"]
-[ext_resource type="Script" path="res://audio_emitter.gd" id="4_jvx85"]
+[ext_resource type="PackedScene" uid="uid://cbdemu2vstyn2" path="res://Enemies/enemy.tscn" id="2_pdu3i"]
+[ext_resource type="Script" uid="uid://dk058ljklcrv" path="res://audio_emitter.gd" id="4_jvx85"]
 [ext_resource type="AudioStream" uid="uid://y8fpvq58w8nm" path="res://Assets/Audio/Retro Charge Magic 11.wav" id="5_t1x6t"]
 [ext_resource type="AudioStream" uid="uid://d0c23ra0rd4we" path="res://Assets/Audio/Retro Charge StereoUP 12.wav" id="6_dct5p"]
 [ext_resource type="AudioStream" uid="uid://3bfmw6gah7eq" path="res://Assets/Audio/Retro Explosion Short 01.wav" id="7_l3dg7"]
@@ -12,9 +12,9 @@
 [ext_resource type="AudioStream" uid="uid://d3bta5s0g1aux" path="res://Assets/Audio/Retro Swooosh 02.wav" id="10_at0nl"]
 [ext_resource type="AudioStream" uid="uid://dueikwcy877tf" path="res://Assets/Audio/Retro Swooosh 07.wav" id="11_l6rj8"]
 [ext_resource type="AudioStream" uid="uid://b5k2xbcifruxr" path="res://Assets/Audio/Retro Magic 54.wav" id="12_hhyrp"]
-[ext_resource type="Texture2D" uid="uid://drcsrceiesu1q" path="res://Assets/Sprites/Meter.png" id="12_dg77c"]
 [ext_resource type="Script" uid="uid://b4ta7mj8hg24t" path="res://time_system.gd" id="13_w48qg"]
 [ext_resource type="Script" uid="uid://c4dy27btkcu2h" path="res://date_time.gd" id="14_vivmo"]
+[ext_resource type="PackedScene" uid="uid://hawdlvvcayrh" path="res://Enemies/ranged_enemy.tscn" id="15_vivmo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_he20k"]
 size = Vector2(3202.5, 235.5)
@@ -50,7 +50,7 @@ texture = ExtResource("1_ohr7c")
 position = Vector2(-197, 70)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/WallCollisions"]
-position = Vector2(1505.75, -158.25)
+position = Vector2(1503, -158)
 shape = SubResource("RectangleShape2D_he20k")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Background/WallCollisions"]
@@ -65,14 +65,8 @@ shape = SubResource("RectangleShape2D_cdygp")
 position = Vector2(3098, -93)
 shape = SubResource("RectangleShape2D_ahm5a")
 
-[node name="Enemy2" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
-position = Vector2(830, 101)
-
-[node name="Enemy3" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
-position = Vector2(706, 38)
-
 [node name="Enemy4" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
-position = Vector2(387, 74)
+position = Vector2(368, 76)
 
 [node name="Enemy5" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
 position = Vector2(1254, 117)
@@ -81,25 +75,19 @@ position = Vector2(1254, 117)
 position = Vector2(1255, 49)
 
 [node name="Enemy7" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
-position = Vector2(1790, 33)
-
-[node name="Enemy8" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
-position = Vector2(1945, 115)
-
-[node name="Enemy9" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
-position = Vector2(2101, 35)
-
-[node name="Enemy10" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
-position = Vector2(2553, 118)
+position = Vector2(1767, 76)
 
 [node name="Enemy11" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
-position = Vector2(2551, 77)
+position = Vector2(2557, 67)
 
-[node name="Enemy12" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
-position = Vector2(2556, 30)
+[node name="Enemy" parent="." instance=ExtResource("15_vivmo")]
+position = Vector2(816, 78)
+
+[node name="Enemy2" parent="." instance=ExtResource("15_vivmo")]
+position = Vector2(1910, 67)
 
 [node name="Player" parent="." instance=ExtResource("2_gvujc")]
-position = Vector2(-72, 68)
+position = Vector2(-141, 74)
 combo_timeout = 1.0
 
 [node name="AudioEmitter" type="Node" parent="."]
@@ -137,3 +125,9 @@ stream = ExtResource("12_hhyrp")
 script = ExtResource("13_w48qg")
 date_time = SubResource("Resource_2cqfq")
 ticks_pr_sec = 60
+
+[node name="Enemy3" parent="." instance=ExtResource("15_vivmo")]
+position = Vector2(2683, 39)
+
+[node name="Enemy8" parent="." instance=ExtResource("15_vivmo")]
+position = Vector2(2685, 104)
