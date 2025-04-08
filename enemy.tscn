@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cbdemu2vstyn2"]
+[gd_scene load_steps=41 format=3 uid="uid://cbdemu2vstyn2"]
 
 [ext_resource type="Texture2D" uid="uid://bpfabj4q0vnbc" path="res://Assets/Sprites/shadow.png" id="1_j36x6"]
 [ext_resource type="Script" uid="uid://4gwkydu2p3lp" path="res://enemy.gd" id="1_kkreu"]

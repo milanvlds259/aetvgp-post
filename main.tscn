@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bvy4kv02tvj6s"]
+[gd_scene load_steps=22 format=3 uid="uid://bvy4kv02tvj6s"]
 
 [ext_resource type="Texture2D" uid="uid://bdfcieb2j4ero" path="res://Assets/Sprites/Untitled_Artwork.png" id="1_ohr7c"]
 [ext_resource type="PackedScene" uid="uid://ctrmudo555b1x" path="res://player.tscn" id="2_gvujc"]
@@ -7,12 +7,13 @@
 [ext_resource type="AudioStream" uid="uid://y8fpvq58w8nm" path="res://Assets/Audio/Retro Charge Magic 11.wav" id="5_t1x6t"]
 [ext_resource type="AudioStream" uid="uid://d0c23ra0rd4we" path="res://Assets/Audio/Retro Charge StereoUP 12.wav" id="6_dct5p"]
 [ext_resource type="AudioStream" uid="uid://3bfmw6gah7eq" path="res://Assets/Audio/Retro Explosion Short 01.wav" id="7_l3dg7"]
+[ext_resource type="AudioStream" uid="uid://gs1ldnu7qo8t" path="res://Assets/Audio/Retro Weapon Arrow 02.wav" id="8_2cqfq"]
 [ext_resource type="AudioStream" uid="uid://d7eognnjak6j" path="res://Assets/Audio/Retro Roar LoFi 01.wav" id="8_ehx7a"]
 [ext_resource type="AudioStream" uid="uid://bqtni2skdsieq" path="res://Assets/Audio/Retro Impact LoFi 09.wav" id="9_0qo3k"]
 [ext_resource type="AudioStream" uid="uid://d3bta5s0g1aux" path="res://Assets/Audio/Retro Swooosh 02.wav" id="10_at0nl"]
 [ext_resource type="AudioStream" uid="uid://dueikwcy877tf" path="res://Assets/Audio/Retro Swooosh 07.wav" id="11_l6rj8"]
-[ext_resource type="AudioStream" uid="uid://b5k2xbcifruxr" path="res://Assets/Audio/Retro Magic 54.wav" id="12_hhyrp"]
 [ext_resource type="Texture2D" uid="uid://drcsrceiesu1q" path="res://Assets/Sprites/Meter.png" id="12_dg77c"]
+[ext_resource type="AudioStream" uid="uid://b5k2xbcifruxr" path="res://Assets/Audio/Retro Magic 54.wav" id="12_hhyrp"]
 [ext_resource type="Script" uid="uid://b4ta7mj8hg24t" path="res://time_system.gd" id="13_w48qg"]
 [ext_resource type="Script" uid="uid://c4dy27btkcu2h" path="res://date_time.gd" id="14_vivmo"]
 
@@ -112,10 +113,11 @@ stream = ExtResource("5_t1x6t")
 stream = ExtResource("6_dct5p")
 
 [node name="EnemyDie" type="AudioStreamPlayer" parent="AudioEmitter"]
-stream = ExtResource("7_l3dg7")
+stream = ExtResource("8_ehx7a")
+volume_db = -12.0
 
 [node name="EnemyHurt" type="AudioStreamPlayer" parent="AudioEmitter"]
-stream = ExtResource("8_ehx7a")
+stream = ExtResource("8_2cqfq")
 volume_db = -15.0
 
 [node name="HeavyAtk" type="AudioStreamPlayer" parent="AudioEmitter"]
@@ -130,6 +132,9 @@ stream = ExtResource("11_l6rj8")
 
 [node name="TBDSound" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("12_hhyrp")
+
+[node name="SpecialAtk" type="AudioStreamPlayer" parent="AudioEmitter"]
+stream = ExtResource("7_l3dg7")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
