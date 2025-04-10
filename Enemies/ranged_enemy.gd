@@ -29,6 +29,7 @@ var shoot_cooldown = 2.0  # Seconds between shots
 
 signal hurt
 signal death
+signal shoot
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -179,6 +180,8 @@ func shoot_at_player():
 	$AttackCooldown.wait_time = shoot_cooldown
 	$AttackCooldown.start()
 	$AnimatedSprite2D.play("attack")
+	await get_tree().create_timer(0.25).timeout
+	shoot.emit()
 
 func fire_projectile():
 	if player == null or dying:

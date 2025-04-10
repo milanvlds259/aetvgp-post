@@ -26,6 +26,7 @@ var can_attack = true
 
 signal hurt
 signal death
+signal hit
 
 var current_attack_hit = false
 
@@ -154,6 +155,7 @@ func attack_player():
 	current_attack_hit = false
 	$AttackCooldown.start()
 	$AnimatedSprite2D.play("attack")
+	hit.emit()
 
 func _on_attack_hitbox_body_entered(body):
 	# Only process if we're in attack state, hitbox is enabled, and this attack hasn't hit yet
