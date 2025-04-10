@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://ctrmudo555b1x"]
+[gd_scene load_steps=61 format=3 uid="uid://ctrmudo555b1x"]
 
 [ext_resource type="Script" uid="uid://2e6jj5wi7duj" path="res://Scripts/player.gd" id="1_xe545"]
 [ext_resource type="Texture2D" uid="uid://dj8sf82cs1pba" path="res://Assets/Sprites/AryanAnims/AryanIdleAnimV3.png" id="2_5a4i6"]
@@ -366,9 +366,13 @@ shadow_offset = Vector2(2, 2)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12nyy"]
 bg_color = Color(0.868904, 0, 0.0856932, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7ghd"]
+bg_color = Color(0, 0.827451, 0.2, 1)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_xe545")
 speed = 150
+combo1_meter_restore = 5
 
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.321569)
@@ -494,5 +498,56 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_12nyy")
 step = 1.0
 value = 50.0
 show_percentage = false
+
+[node name="Label" type="Label" parent="CanvasLayer/HPBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.164377
+anchor_top = -10.6536
+anchor_right = -0.164377
+anchor_bottom = -10.6536
+offset_left = 43.8749
+offset_top = 500.45
+offset_right = 137.875
+offset_bottom = 572.45
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_constants/shadow_outline_size = 13
+theme_override_fonts/font = ExtResource("10_wbsmy")
+theme_override_font_sizes/font_size = 64
+text = "H P"
+metadata/_edit_use_anchors_ = true
+
+[node name="Meter" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 330.0
+offset_top = 28.0
+offset_right = 603.0
+offset_bottom = 70.0
+theme_override_styles/background = SubResource("StyleBoxFlat_cmdqj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_n7ghd")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="CanvasLayer/Meter"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.164377
+anchor_top = -10.6536
+anchor_right = -0.164377
+anchor_bottom = -10.6536
+offset_left = 43.8749
+offset_top = 500.45
+offset_right = 137.875
+offset_bottom = 572.45
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_constants/shadow_outline_size = 13
+theme_override_fonts/font = ExtResource("10_wbsmy")
+theme_override_font_sizes/font_size = 56
+text = "STAMINA"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
