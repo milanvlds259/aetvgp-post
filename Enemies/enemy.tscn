@@ -211,7 +211,7 @@ height = 58.0
 radius = 27.0
 height = 74.0
 
-[node name="Enemy" type="RigidBody2D"]
+[node name="Enemy" type="RigidBody2D" groups=["enemy"]]
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_kkreu")
@@ -264,7 +264,7 @@ initial_velocity_min = 400.0
 initial_velocity_max = 400.0
 scale_amount_min = 3.0
 scale_amount_max = 5.0
-color = Color(1, 0.482353, 0.223529, 1)
+color = Color(1, 0.121569, 0.223529, 1)
 anim_speed_min = 50.0
 anim_speed_max = 95.0
 

@@ -12,6 +12,7 @@ var canAttack: bool = true
 signal light_atk
 signal med_atk
 signal heavy_atk
+signal special_atk
 
 # Combo system variables
 @export var combo_timeout = 2.0  # Time window to land the next hit in seconds
@@ -180,6 +181,9 @@ func _on_animated_sprite_2d_animation_changed() -> void:
 	elif $AnimatedSprite2D.animation == "heavy_attack":
 		await get_tree().create_timer(0.1).timeout
 		heavy_atk.emit()
+	elif $AnimatedSprite2D.animation == "special_attack":
+		await get_tree().create_timer(0.5).timeout
+		special_atk.emit()
 
 
 func on_successful_hit(attack_type):
