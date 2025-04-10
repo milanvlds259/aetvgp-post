@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bvy4kv02tvj6s"]
+[gd_scene load_steps=23 format=3 uid="uid://bvy4kv02tvj6s"]
 
 [ext_resource type="Texture2D" uid="uid://bdfcieb2j4ero" path="res://Assets/Sprites/Untitled_Artwork.png" id="1_ohr7c"]
 [ext_resource type="PackedScene" uid="uid://ctrmudo555b1x" path="res://player.tscn" id="2_gvujc"]
