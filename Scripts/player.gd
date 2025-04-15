@@ -13,10 +13,12 @@ signal light_atk
 signal med_atk
 signal heavy_atk
 signal special_atk
+signal dash_atk
 
 # Combo system variables
 @export var combo_timeout = 2.0  # Time window to land the next hit in seconds
-@export var combo1_meter_restore: int = 4
+@export var special_meter_restore: int = 4
+@export var dash_meter_restore: int = 5
 var current_combo = []  # Track the sequence of successful attacks
 var combo_timer = 0.0   # Timer to track time since last successful hit
 var combo_active = false  # Is a combo currently in progress?
@@ -24,7 +26,8 @@ var last_hit_time = 0.0
 var meter_increase = 1.0
 # Define available combos (can be expanded later)
 var available_combos = {
-	"special_attack": ["light_attack", "medium_attack", "heavy_attack"]
+	"special_attack": ["light_attack", "medium_attack", "heavy_attack"],
+	"dash_attack": ["light_attack", "medium_attack", "light_attack", "medium_attack"],
 }
 @onready var progress_meter = $CanvasLayer/Meter
 
@@ -119,12 +122,12 @@ func heal(heal_amount: int):
 
 func die():
 	# reset current scene
-	get_tree().change_scene_to_file("res://title_sc.tscn")
+	get_tree().change_scene_to_file("res://death_sc.tscn")
 
 
 
 func _on_animation_finished():
-	if $AnimatedSprite2D.animation in ["light_attack", "medium_attack", "heavy_attack", "special_attack"]:
+	if $AnimatedSprite2D.animation in ["light_attack", "medium_attack", "heavy_attack", "special_attack", "dash_attack"]:
 		attacking = false
 		canAttack = true
 		$AnimatedSprite2D.play("idle")
@@ -146,9 +149,9 @@ func _on_frame_changed():
 		$AttackHitbox.scale = Vector2(1.1, 1.3)
 		if $AnimatedSprite2D.flip_h:
 			$AttackHitbox.scale.x = -1
-		$AttackHitbox/CollisionShape2D.disabled = !(frame == 2 or frame == 3)
+		$AttackHitbox/CollisionShape2D.disabled = !(frame == 1 or frame == 2)
 		#Shouldn't change variable UNLESS frame >= 4
-		if frame >= 5:
+		if frame >= 3:
 			canAttack = true
 
 	if $AnimatedSprite2D.animation == "heavy_attack":
@@ -167,9 +170,20 @@ func _on_frame_changed():
 		if $AnimatedSprite2D.flip_h:
 			$AttackHitbox.scale.x = -1
 		$AttackHitbox/CollisionShape2D.disabled = !(frame in [5, 6, 7])
-		#Shouldn't change variable UNLESS frame >= 6
+		#Shouldn't change variable UNLESS frame >= 9
 		if frame >= 9:
 			canAttack = true
+
+	if $AnimatedSprite2D.animation == "dash_attack":
+		var frame = $AnimatedSprite2D.frame
+		$AttackHitbox.scale = Vector2(1.5, 1.3)
+		if $AnimatedSprite2D.flip_h:
+			$AttackHitbox.scale.x = -1
+		$AttackHitbox/CollisionShape2D.disabled = !(frame in [2, 5])
+		#Shouldn't change variable UNLESS frame >= 9
+		if frame >= 8:
+			canAttack = true
+
 
 func _on_animated_sprite_2d_animation_changed() -> void:
 	if $AnimatedSprite2D.animation == "light_attack":
@@ -184,6 +198,9 @@ func _on_animated_sprite_2d_animation_changed() -> void:
 	elif $AnimatedSprite2D.animation == "special_attack":
 		await get_tree().create_timer(0.5).timeout
 		special_atk.emit()
+	elif $AnimatedSprite2D.animation == "dash_attack":
+		await get_tree().create_timer(0.3).timeout
+		dash_atk.emit()
 
 
 func on_successful_hit(attack_type):
@@ -237,6 +254,16 @@ func execute_combo(combo_name):
 
 		# Reset combo after execution
 		reset_combo()
+	# Example: dash_attack combo execution
+	elif combo_name == "dash_attack":
+		# You would play a dash attack animation here
+		print("DASH ATTACK UNLEASHED!")
+		
+		# Add visual effects, sounds, or whatever you want for the dash attack
+		$AnimatedSprite2D.play("dash_attack")
+
+		# Reset combo after execution
+		reset_combo()
 
 func register_hit(attack_type):
 	var current_time = Time.get_ticks_msec()
@@ -245,8 +272,9 @@ func register_hit(attack_type):
 	last_hit_time = current_time
 	# Called from enemy.gd when a hit is successfully landed
 	on_successful_hit(attack_type)
-	if attack_type == "special_attack":
-		restore_meter(combo1_meter_restore)
+	if attack_type in ["special_attack", "dash_attack"]:
+		# Restore special meter for successful hits
+		restore_meter(special_meter_restore)
 
 func restore_meter(amount: int):
 	meter += amount

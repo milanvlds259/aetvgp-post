@@ -9,6 +9,8 @@ extends RigidBody2D
 @export var medium_attack_knockback = 800.0
 @export var heavy_attack_knockback = 1200.0
 @export var special_attack_knockback = 300.0
+@export var dash_attack_damage = 80
+@export var dash_attack_knockback = 50.0
 @export var recovery_time = 0.5
 
 @export var movement_speed = 60
@@ -241,6 +243,10 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 			attack_type = "special_attack"
 			knockback_force = special_attack_knockback
 			damage = special_attack_damage
+		elif player.get_node("AnimatedSprite2D").animation == "dash_attack":
+			attack_type = "dash_attack"
+			knockback_force = dash_attack_knockback
+			damage = dash_attack_damage
 
 		take_damage(damage)
 		
