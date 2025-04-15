@@ -129,7 +129,7 @@ volume_db = -10.0
 
 [node name="EnemyShoot" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("17_cegan")
-volume_db = 5.0
+volume_db = 10.0
 
 [node name="Splat" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("18_82xsv")

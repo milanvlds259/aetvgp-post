@@ -46,3 +46,6 @@ func _on_death2():
 
 func _on_shoot():
 	$EnemyShoot.play()
+
+func splat():
+	$Splat.play()
