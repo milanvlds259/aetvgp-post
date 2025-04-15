@@ -39,11 +39,11 @@ func _ready() -> void:
 	# Connect the hitbox detection
 	$Hitbox.area_entered.connect(_on_hitbox_area_entered)
 
-	$PlayerDetection.body_entered.connect(_on_player_detected)
-	$PlayerDetection.body_exited.connect(_on_player_exited)
+	$PlayerDetection.area_entered.connect(_on_player_detected)
+	$PlayerDetection.area_exited.connect(_on_player_exited)
 
-	$AttackRange.body_entered.connect(_on_attack_range_body_entered)
-	$AttackRange.body_exited.connect(_on_attack_range_body_exited)
+	$AttackRange.area_entered.connect(_on_attack_range_area_entered)
+	$AttackRange.area_exited.connect(_on_attack_range_area_exited)
 
 	$AttackCooldown.timeout.connect(_on_attack_cooldown_timeout)
 
@@ -53,7 +53,7 @@ func _ready() -> void:
 	$AnimatedSprite2D.play("idle_shell")
 	$AttackHitbox/CollisionShape2D.disabled = true
 
-	$AttackHitbox.body_entered.connect(_on_attack_hitbox_body_entered)
+	$AttackHitbox.area_entered.connect(_on_attack_hitbox_area_entered)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -95,25 +95,25 @@ func _process(delta: float) -> void:
 			State.ATTACK:
 				linear_velocity = Vector2.ZERO
 
-func _on_player_detected(body):
-	if body.name == "Player" and !dying and !being_hit:
-		player = body
+func _on_player_detected(area):
+	if area.name == "PlayerHitbox" and !dying and !being_hit:
+		player = area.get_parent()
 		current_state = State.CHASE
 
 func _on_player_exited(body):
-	if body.name == "Player" and !dying:
+	if body.name == "PlayerHitbox" and !dying:
 		player = null
 		current_state = State.IDLE
 
-func _on_attack_range_body_entered(body):
-	if body.name == "Player" and !dying and !being_hit:
+func _on_attack_range_area_entered(area):
+	if area.name == "PlayerHitbox" and !dying and !being_hit:
 		# Only change to attack state if we can attack and aren't already attacking
 		if can_attack and current_state != State.ATTACK:
 			current_state = State.ATTACK
 			attack_player()
 
-func _on_attack_range_body_exited(body):
-	if body.name == "Player" and !dying and !being_hit:
+func _on_attack_range_area_exited(area):
+	if area.name == "PlayerHitbox" and !dying and !being_hit:
 		# If we're in attack state, remain there until animation finishes
 		# The animation finished signal will handle the state transition back to CHASE
 		pass
@@ -147,7 +147,7 @@ func _on_frame_changed():
 			
 			# Check if player is already in hitbox when it activates AND this attack hasn't hit yet
 			if player != null and $AttackHitbox.overlaps_body(player) and player.has_method("take_damage") and !current_attack_hit:
-				player.take_damage(enemy_attack_damage)
+				player.take_damage(enemy_attack_damage, global_position)
 				current_attack_hit = true
 		else:
 			$AttackHitbox/CollisionShape2D.disabled = true
@@ -159,13 +159,12 @@ func attack_player():
 	$AnimatedSprite2D.play("attack_shell")
 	hit.emit()
 
-func _on_attack_hitbox_body_entered(body):
-	# Only process if we're in attack state, hitbox is enabled, and this attack hasn't hit yet
-	if body.name == "Player" and current_state == State.ATTACK and !$AttackHitbox/CollisionShape2D.disabled and !current_attack_hit:
-		if body.has_method("take_damage"):
-			body.take_damage(enemy_attack_damage)
-			current_attack_hit = true  # Mark this attack as having hit
-			# No need to temporarily disable the hitbox, we're tracking hits instead
+func _on_attack_hitbox_area_entered(area):
+	if area.name == "PlayerHitbox":
+		player = area.get_parent()
+		player.take_damage(enemy_attack_damage, global_position)
+		current_attack_hit = true  # Mark this attack as having hit
+		# No need to temporarily disable the hitbox, we're tracking hits instead
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if dying:

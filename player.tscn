@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://ctrmudo555b1x"]
+[gd_scene load_steps=70 format=3 uid="uid://ctrmudo555b1x"]
 
 [ext_resource type="Script" uid="uid://2e6jj5wi7duj" path="res://Scripts/player.gd" id="1_xe545"]
 [ext_resource type="Texture2D" uid="uid://dj8sf82cs1pba" path="res://Assets/Sprites/AryanAnims/AryanIdleAnimV3.png" id="2_5a4i6"]
@@ -424,6 +424,10 @@ bg_color = Color(0.868904, 0, 0.0856932, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7ghd"]
 bg_color = Color(0, 0.827451, 0.2, 1)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nvl01"]
+radius = 14.0
+height = 52.0
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_xe545")
 speed = 150
@@ -438,7 +442,7 @@ texture = ExtResource("2_olst6")
 position = Vector2(2, -19)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_xh4w4")
-animation = &"idle"
+animation = &"dash_attack"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -14)
@@ -633,5 +637,11 @@ theme_override_fonts/font = ExtResource("10_wbsmy")
 theme_override_font_sizes/font_size = 56
 text = "STAMINA"
 metadata/_edit_use_anchors_ = true
+
+[node name="PlayerHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
+position = Vector2(-1, -11)
+shape = SubResource("CapsuleShape2D_nvl01")
 
 [connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
