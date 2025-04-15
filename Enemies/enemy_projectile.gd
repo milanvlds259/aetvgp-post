@@ -4,12 +4,16 @@ var direction = Vector2.RIGHT
 @export var speed = 300.0
 @export var damage = 15
 
+var sfx
+
 func _ready():
 	# Connect signals
 	body_entered.connect(_on_body_entered)
 	
 	# Start auto-destroy timer (in case it never hits anything)
 	get_tree().create_timer(5.0).timeout.connect(queue_free)
+	
+	sfx = get_tree().root.get_node("Node2D").get_node("AudioEmitter")
 
 func _process(delta):
 	# Move in the specified direction
@@ -29,6 +33,7 @@ func _on_body_entered(body):
 	# Check if we hit the player
 	if body.name == "Player" and body.has_method("take_damage"):
 		body.take_damage(damage)
+		sfx.splat()
 		# Create hit effect if desired
 		# var hit_effect = hit_effect_scene.instantiate()
 		# hit_effect.global_position = global_position

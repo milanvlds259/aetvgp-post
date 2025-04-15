@@ -70,25 +70,25 @@ shape = SubResource("RectangleShape2D_cdygp")
 position = Vector2(3098, -93)
 shape = SubResource("RectangleShape2D_ahm5a")
 
-[node name="Enemy4" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
+[node name="Enemy4" parent="." instance=ExtResource("2_pdu3i")]
 position = Vector2(368, 76)
 
-[node name="Enemy5" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
+[node name="Enemy5" parent="." instance=ExtResource("2_pdu3i")]
 position = Vector2(1254, 117)
 
-[node name="Enemy6" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
+[node name="Enemy6" parent="." instance=ExtResource("2_pdu3i")]
 position = Vector2(1255, 49)
 
-[node name="Enemy7" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
+[node name="Enemy7" parent="." instance=ExtResource("2_pdu3i")]
 position = Vector2(1767, 76)
 
-[node name="Enemy11" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
+[node name="Enemy11" parent="." instance=ExtResource("2_pdu3i")]
 position = Vector2(2557, 67)
 
-[node name="Enemy" parent="." groups=["enemy2"] instance=ExtResource("15_vivmo")]
+[node name="Enemy" parent="." instance=ExtResource("15_vivmo")]
 position = Vector2(816, 78)
 
-[node name="Enemy2" parent="." groups=["enemy2"] instance=ExtResource("15_vivmo")]
+[node name="Enemy2" parent="." instance=ExtResource("15_vivmo")]
 position = Vector2(1910, 67)
 
 [node name="Player" parent="." instance=ExtResource("2_gvujc")]
@@ -137,7 +137,7 @@ volume_db = -10.0
 
 [node name="EnemyShoot" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("17_cegan")
-volume_db = 5.0
+volume_db = 10.0
 
 [node name="Splat" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("18_82xsv")
@@ -150,8 +150,8 @@ script = ExtResource("13_w48qg")
 date_time = SubResource("Resource_2cqfq")
 ticks_pr_sec = 60
 
-[node name="Enemy3" parent="." groups=["enemy2"] instance=ExtResource("15_vivmo")]
+[node name="Enemy3" parent="." instance=ExtResource("15_vivmo")]
 position = Vector2(2683, 39)
 
-[node name="Enemy8" parent="." groups=["enemy2"] instance=ExtResource("15_vivmo")]
+[node name="Enemy8" parent="." instance=ExtResource("15_vivmo")]
 position = Vector2(2685, 104)
