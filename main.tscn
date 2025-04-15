@@ -1,6 +1,6 @@
-[gd_scene load_steps=26 format=3 uid="uid://bvy4kv02tvj6s"]
+[gd_scene load_steps=27 format=3 uid="uid://bvy4kv02tvj6s"]
 
-[ext_resource type="Texture2D" uid="uid://bdfcieb2j4ero" path="res://Assets/Sprites/Untitled_Artwork.png" id="1_ohr7c"]
+[ext_resource type="Texture2D" uid="uid://ccch14momfxhw" path="res://Assets/Sprites/Environment v3.png" id="1_getpj"]
 [ext_resource type="PackedScene" uid="uid://ctrmudo555b1x" path="res://player.tscn" id="2_gvujc"]
 [ext_resource type="PackedScene" uid="uid://cbdemu2vstyn2" path="res://Enemies/enemy.tscn" id="2_pdu3i"]
 [ext_resource type="Script" uid="uid://dk058ljklcrv" path="res://audio_emitter.gd" id="4_jvx85"]
@@ -20,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://chkmeb41ju8te" path="res://Assets/Audio/Retro Scream 01.wav" id="16_074og"]
 [ext_resource type="AudioStream" uid="uid://wegpfj70m3qm" path="res://Assets/Audio/Retro Blop StereoUP 09.wav" id="17_cegan"]
 [ext_resource type="AudioStream" uid="uid://cswrx2iwmy3r5" path="res://Assets/Audio/Retro Blop 18.wav" id="18_82xsv"]
+[ext_resource type="PackedScene" uid="uid://b38ia2io1m3wx" path="res://Enemies/snail_enemy.tscn" id="21_getpj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_he20k"]
 size = Vector2(3202.5, 235.5)
@@ -49,7 +50,7 @@ y_sort_enabled = true
 [node name="Protobackground" type="Sprite2D" parent="Background"]
 z_index = -1
 position = Vector2(1286, -26)
-texture = ExtResource("1_ohr7c")
+texture = ExtResource("1_getpj")
 
 [node name="WallCollisions" type="StaticBody2D" parent="Background"]
 position = Vector2(-197, 70)
@@ -70,29 +71,20 @@ shape = SubResource("RectangleShape2D_cdygp")
 position = Vector2(3098, -93)
 shape = SubResource("RectangleShape2D_ahm5a")
 
-[node name="Enemy4" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
+[node name="Enemy4" parent="." instance=ExtResource("2_pdu3i")]
 position = Vector2(368, 76)
 
-[node name="Enemy5" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
-position = Vector2(1254, 117)
+[node name="Enemy7" parent="." instance=ExtResource("2_pdu3i")]
+position = Vector2(1947, 44)
 
-[node name="Enemy6" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
-position = Vector2(1255, 49)
+[node name="Enemy8" parent="." instance=ExtResource("2_pdu3i")]
+position = Vector2(1948, 107)
 
-[node name="Enemy7" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
-position = Vector2(1767, 76)
-
-[node name="Enemy11" parent="." groups=["enemy"] instance=ExtResource("2_pdu3i")]
-position = Vector2(2557, 67)
-
-[node name="Enemy" parent="." groups=["enemy2"] instance=ExtResource("15_vivmo")]
+[node name="Enemy" parent="." instance=ExtResource("15_vivmo")]
 position = Vector2(816, 78)
 
-[node name="Enemy2" parent="." groups=["enemy2"] instance=ExtResource("15_vivmo")]
-position = Vector2(1910, 67)
-
 [node name="Player" parent="." instance=ExtResource("2_gvujc")]
-position = Vector2(-141, 74)
+position = Vector2(-267, 85)
 combo_timeout = 1.0
 
 [node name="AudioEmitter" type="Node" parent="."]
@@ -150,8 +142,19 @@ script = ExtResource("13_w48qg")
 date_time = SubResource("Resource_2cqfq")
 ticks_pr_sec = 60
 
-[node name="Enemy3" parent="." groups=["enemy2"] instance=ExtResource("15_vivmo")]
-position = Vector2(2683, 39)
+[node name="Enemy3" parent="." instance=ExtResource("15_vivmo")]
+position = Vector2(2730, 28)
 
-[node name="Enemy8" parent="." groups=["enemy2"] instance=ExtResource("15_vivmo")]
-position = Vector2(2685, 104)
+[node name="Snail" parent="." instance=ExtResource("21_getpj")]
+position = Vector2(1288, 76)
+max_health = 300
+
+[node name="Snail2" parent="." instance=ExtResource("21_getpj")]
+position = Vector2(1777, 60)
+
+[node name="Enemy2" parent="." instance=ExtResource("15_vivmo")]
+position = Vector2(2736, 105)
+
+[node name="Snail3" parent="." instance=ExtResource("21_getpj")]
+position = Vector2(2550, 70)
+max_health = 300

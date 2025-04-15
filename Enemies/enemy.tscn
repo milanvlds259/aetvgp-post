@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cbdemu2vstyn2"]
+[gd_scene load_steps=37 format=3 uid="uid://cbdemu2vstyn2"]
 
 [ext_resource type="Texture2D" uid="uid://bpfabj4q0vnbc" path="res://Assets/Sprites/shadow.png" id="1_j36x6"]
 [ext_resource type="Script" uid="uid://4gwkydu2p3lp" path="res://Enemies/enemy.gd" id="1_kkreu"]
@@ -199,6 +199,10 @@ particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
+[sub_resource type="Gradient" id="Gradient_rt1x0"]
+offsets = PackedFloat32Array(0.546667, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.333333, 0, 1)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_efi8a"]
 radius = 81.0
 height = 674.0
@@ -257,14 +261,14 @@ position = Vector2(0, -4)
 rotation = -1.5708
 skew = -0.698132
 emitting = false
-amount = 5
-lifetime = 0.5
+amount = 7
+lifetime = 0.4
 explosiveness = 0.8
-initial_velocity_min = 400.0
-initial_velocity_max = 400.0
-scale_amount_min = 3.0
-scale_amount_max = 5.0
-color = Color(1, 0.121569, 0.223529, 1)
+initial_velocity_min = 177.78
+initial_velocity_max = 298.98
+scale_amount_min = 5.0
+scale_amount_max = 7.0
+color_ramp = SubResource("Gradient_rt1x0")
 anim_speed_min = 50.0
 anim_speed_max = 95.0
 

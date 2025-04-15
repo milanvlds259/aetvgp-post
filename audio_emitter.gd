@@ -8,6 +8,7 @@ func _ready() -> void:
 	player.med_atk.connect(_on_med_atk)
 	player.heavy_atk.connect(_on_heavy_atk)
 	player.special_atk.connect(_on_special_atk)
+	player.dash_atk.connect(_on_special_atk)
 	
 	for node: RigidBody2D in get_tree().get_nodes_in_group("enemy"):
 		node.hurt.connect(_on_hurt)

@@ -50,7 +50,7 @@ func _ready() -> void:
 	$AnimatedSprite2D.animation_finished.connect(_on_animation_finished)
 	$AnimatedSprite2D.frame_changed.connect(_on_frame_changed)
 
-	$AnimatedSprite2D.play("idle")
+	$AnimatedSprite2D.play("idle_shell")
 	$AttackHitbox/CollisionShape2D.disabled = true
 
 	$AttackHitbox.body_entered.connect(_on_attack_hitbox_body_entered)
@@ -68,12 +68,12 @@ func _process(delta: float) -> void:
 				current_state = State.CHASE
 			else:
 				current_state = State.IDLE
-				$AnimatedSprite2D.play("idle")
+				$AnimatedSprite2D.play("idle_shell")
 	elif !dying:
 		match current_state:
 			State.IDLE:
-				if $AnimatedSprite2D.animation != "idle":
-					$AnimatedSprite2D.play("idle")
+				if $AnimatedSprite2D.animation != "idle_shell":
+					$AnimatedSprite2D.play("idle_shell")
 				linear_velocity = Vector2.ZERO
 			State.CHASE:
 				# Chase the player
@@ -90,7 +90,7 @@ func _process(delta: float) -> void:
 						$AttackRange.scale.x = 1
 
 					linear_velocity = direction * movement_speed
-					$AnimatedSprite2D.play("walk")
+					$AnimatedSprite2D.play("walk_shell")
 
 			State.ATTACK:
 				linear_velocity = Vector2.ZERO
@@ -122,18 +122,18 @@ func _on_attack_cooldown_timeout():
 	can_attack = true
 
 func _on_animation_finished():
-	if $AnimatedSprite2D.animation == "attack" and !dying and !being_hit:
+	if $AnimatedSprite2D.animation == "attack_shell" and !dying and !being_hit:
 		$AttackHitbox/CollisionShape2D.disabled = true
 
 		if player != null:
 			current_state = State.CHASE
-			$AnimatedSprite2D.play("walk")
+			$AnimatedSprite2D.play("walk_shell")
 		else:
 			current_state = State.IDLE
-			$AnimatedSprite2D.play("idle")
+			$AnimatedSprite2D.play("idle_shell")
 
 func _on_frame_changed():
-	if $AnimatedSprite2D.animation == "attack":
+	if $AnimatedSprite2D.animation == "attack_shell":
 		var frame = $AnimatedSprite2D.frame
 		
 		# Handle flipping the hitbox based on direction
@@ -156,7 +156,7 @@ func attack_player():
 	can_attack = false
 	current_attack_hit = false
 	$AttackCooldown.start()
-	$AnimatedSprite2D.play("attack")
+	$AnimatedSprite2D.play("attack_shell")
 	hit.emit()
 
 func _on_attack_hitbox_body_entered(body):
