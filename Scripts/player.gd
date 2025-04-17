@@ -19,6 +19,7 @@ signal light_atk
 signal med_atk
 signal heavy_atk
 signal special_atk
+signal special_atk2
 signal dash_atk
 
 # Combo system variables
@@ -292,7 +293,7 @@ func _on_animated_sprite_2d_animation_changed() -> void:
 		special_atk.emit()
 	elif $AnimatedSprite2D.animation == "dash_attack":
 		await get_tree().create_timer(0.3).timeout
-		dash_atk.emit()
+		special_atk2.emit()
 
 
 func on_successful_hit(attack_type):

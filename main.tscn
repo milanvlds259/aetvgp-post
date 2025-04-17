@@ -114,8 +114,9 @@ volume_db = -12.0
 [node name="LightAtk" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("11_l6rj8")
 
-[node name="TBDSound" type="AudioStreamPlayer" parent="AudioEmitter"]
+[node name="SpecialAtk2" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("12_hhyrp")
+volume_db = -10.0
 
 [node name="SpecialAtk" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("7_l3dg7")
