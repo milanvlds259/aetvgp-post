@@ -126,6 +126,10 @@ func _physics_process(delta):
 		$AnimatedSprite2D.play("heavy_attack")
 		return
 
+	#TEMP RESTRART HOTKEY
+	if Input.is_key_pressed(KEY_R):
+		get_tree().reload_current_scene()
+
 	if not attacking:
 		var input_vector = Vector2(
 			Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
