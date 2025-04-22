@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bvy4kv02tvj6s"]
+[gd_scene load_steps=28 format=3 uid="uid://bvy4kv02tvj6s"]
 
 [ext_resource type="Texture2D" uid="uid://ccch14momfxhw" path="res://Assets/Sprites/Environment v3.png" id="1_getpj"]
 [ext_resource type="PackedScene" uid="uid://ctrmudo555b1x" path="res://player.tscn" id="2_gvujc"]
@@ -20,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://chkmeb41ju8te" path="res://Assets/Audio/Retro Scream 01.wav" id="16_074og"]
 [ext_resource type="AudioStream" uid="uid://wegpfj70m3qm" path="res://Assets/Audio/Retro Blop StereoUP 09.wav" id="17_cegan"]
 [ext_resource type="AudioStream" uid="uid://cswrx2iwmy3r5" path="res://Assets/Audio/Retro Blop 18.wav" id="18_82xsv"]
+[ext_resource type="AudioStream" uid="uid://c08aavm0e1eym" path="res://Assets/Audio/Retro Swooosh 16.wav" id="19_ryguw"]
 [ext_resource type="PackedScene" uid="uid://b38ia2io1m3wx" path="res://Enemies/snail_enemy.tscn" id="21_getpj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_he20k"]
@@ -92,6 +93,7 @@ script = ExtResource("4_jvx85")
 
 [node name="MeterFull" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("5_t1x6t")
+volume_db = -15.0
 
 [node name="MeterUp" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("6_dct5p")
@@ -135,6 +137,10 @@ volume_db = 10.0
 [node name="Splat" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("18_82xsv")
 volume_db = -5.0
+
+[node name="DashAtk" type="AudioStreamPlayer" parent="AudioEmitter"]
+stream = ExtResource("19_ryguw")
+volume_db = 24.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
