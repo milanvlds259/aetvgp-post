@@ -1,6 +1,6 @@
-[gd_scene load_steps=28 format=3 uid="uid://bvy4kv02tvj6s"]
+[gd_scene load_steps=30 format=3 uid="uid://bvy4kv02tvj6s"]
 
-[ext_resource type="Texture2D" uid="uid://ccch14momfxhw" path="res://Assets/Sprites/Environment v3.png" id="1_getpj"]
+[ext_resource type="Texture2D" uid="uid://bwovm8o8s1mjq" path="res://Assets/Sprites/FinalBack.png" id="1_ryguw"]
 [ext_resource type="PackedScene" uid="uid://ctrmudo555b1x" path="res://player.tscn" id="2_gvujc"]
 [ext_resource type="PackedScene" uid="uid://cbdemu2vstyn2" path="res://Enemies/enemy.tscn" id="2_pdu3i"]
 [ext_resource type="Script" uid="uid://dk058ljklcrv" path="res://audio_emitter.gd" id="4_jvx85"]
@@ -24,7 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://b38ia2io1m3wx" path="res://Enemies/snail_enemy.tscn" id="21_getpj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_he20k"]
-size = Vector2(3202.5, 235.5)
+size = Vector2(3208.25, 171.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_duuvw"]
 size = Vector2(21, 362)
@@ -34,6 +34,12 @@ size = Vector2(3227.5, 19.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ahm5a"]
 size = Vector2(21.75, 381.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d13ii"]
+size = Vector2(28.25, 59.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1u8w0"]
+size = Vector2(27, 64.5)
 
 [sub_resource type="Resource" id="Resource_2cqfq"]
 script = ExtResource("14_vivmo")
@@ -51,42 +57,118 @@ y_sort_enabled = true
 [node name="Protobackground" type="Sprite2D" parent="Background"]
 z_index = -1
 position = Vector2(1286, -26)
-texture = ExtResource("1_getpj")
+texture = ExtResource("1_ryguw")
 
 [node name="WallCollisions" type="StaticBody2D" parent="Background"]
 position = Vector2(-197, 70)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/WallCollisions"]
-position = Vector2(1503, -158)
+position = Vector2(1500.13, -189.875)
 shape = SubResource("RectangleShape2D_he20k")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Background/WallCollisions"]
-position = Vector2(-105.5, -96)
+position = Vector2(-111, -97)
 shape = SubResource("RectangleShape2D_duuvw")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Background/WallCollisions"]
-position = Vector2(1495.25, 93.25)
+position = Vector2(1492, 75)
 shape = SubResource("RectangleShape2D_cdygp")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Background/WallCollisions"]
 position = Vector2(3098, -93)
 shape = SubResource("RectangleShape2D_ahm5a")
 
-[node name="Enemy4" parent="." instance=ExtResource("2_pdu3i")]
-position = Vector2(368, 76)
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(459.875, -78.75)
+shape = SubResource("RectangleShape2D_d13ii")
 
-[node name="Enemy7" parent="." instance=ExtResource("2_pdu3i")]
-position = Vector2(1947, 44)
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(861, -79)
+shape = SubResource("RectangleShape2D_d13ii")
 
-[node name="Enemy8" parent="." instance=ExtResource("2_pdu3i")]
-position = Vector2(1948, 107)
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(1428, -76)
+shape = SubResource("RectangleShape2D_d13ii")
 
-[node name="Enemy" parent="." instance=ExtResource("15_vivmo")]
-position = Vector2(816, 78)
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(1766, -78)
+shape = SubResource("RectangleShape2D_d13ii")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(2334, -78)
+shape = SubResource("RectangleShape2D_d13ii")
+
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(2603, -78)
+shape = SubResource("RectangleShape2D_d13ii")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(860, 37)
+shape = SubResource("RectangleShape2D_1u8w0")
+
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(1428, 37)
+shape = SubResource("RectangleShape2D_1u8w0")
+
+[node name="CollisionShape2D14" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(1765, 35)
+shape = SubResource("RectangleShape2D_1u8w0")
+
+[node name="CollisionShape2D15" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(2334, 35)
+shape = SubResource("RectangleShape2D_1u8w0")
+
+[node name="CollisionShape2D16" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(2603, 35)
+shape = SubResource("RectangleShape2D_1u8w0")
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="Background/WallCollisions"]
+position = Vector2(459.5, 35.5)
+shape = SubResource("RectangleShape2D_1u8w0")
 
 [node name="Player" parent="." instance=ExtResource("2_gvujc")]
 position = Vector2(-267, 85)
 combo_timeout = 1.0
+
+[node name="Enemies" type="Node2D" parent="."]
+position = Vector2(2329, 44)
+
+[node name="Enemy4" parent="Enemies" instance=ExtResource("2_pdu3i")]
+position = Vector2(-2158, 29)
+
+[node name="Enemy7" parent="Enemies" instance=ExtResource("2_pdu3i")]
+position = Vector2(-831, -49)
+
+[node name="Enemy8" parent="Enemies" instance=ExtResource("2_pdu3i")]
+position = Vector2(-822, 50)
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("15_vivmo")]
+position = Vector2(-1742, 5)
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("15_vivmo")]
+position = Vector2(528, 1)
+
+[node name="Snail" parent="Enemies" instance=ExtResource("21_getpj")]
+position = Vector2(-1186, 4)
+max_health = 300
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("15_vivmo")]
+position = Vector2(-286, -6)
+
+[node name="Snail3" parent="Enemies" instance=ExtResource("21_getpj")]
+position = Vector2(-418, 5)
+max_health = 300
+
+[node name="Snail2" parent="Enemies" instance=ExtResource("21_getpj")]
+position = Vector2(432, -38)
+
+[node name="Snail4" parent="Enemies" instance=ExtResource("21_getpj")]
+position = Vector2(439, 52)
+
+[node name="Enemy5" parent="Enemies" instance=ExtResource("2_pdu3i")]
+position = Vector2(291, -7)
+
+[node name="Snail5" parent="Enemies" instance=ExtResource("21_getpj")]
 
 [node name="AudioEmitter" type="Node" parent="."]
 script = ExtResource("4_jvx85")
@@ -148,20 +230,3 @@ volume_db = 24.0
 script = ExtResource("13_w48qg")
 date_time = SubResource("Resource_2cqfq")
 ticks_pr_sec = 60
-
-[node name="Enemy3" parent="." instance=ExtResource("15_vivmo")]
-position = Vector2(2730, 28)
-
-[node name="Snail" parent="." instance=ExtResource("21_getpj")]
-position = Vector2(1288, 76)
-max_health = 300
-
-[node name="Snail2" parent="." instance=ExtResource("21_getpj")]
-position = Vector2(1777, 60)
-
-[node name="Enemy2" parent="." instance=ExtResource("15_vivmo")]
-position = Vector2(2736, 105)
-
-[node name="Snail3" parent="." instance=ExtResource("21_getpj")]
-position = Vector2(2550, 70)
-max_health = 300

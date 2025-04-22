@@ -16,17 +16,6 @@ position = Vector2(619, 182)
 scale = Vector2(0.325, 0.326042)
 texture = ExtResource("1_2jdfu")
 
-[node name="PlayButton" type="Button" parent="CanvasLayer"]
-offset_left = 545.0
-offset_top = 419.0
-offset_right = 725.0
-offset_bottom = 511.0
-theme_override_constants/outline_size = 5
-theme_override_constants/line_spacing = 295
-theme_override_fonts/font = ExtResource("2_25nwx")
-theme_override_font_sizes/font_size = 76
-text = "PLAY !"
-
 [node name="Label" type="Label" parent="."]
 offset_left = 634.0
 offset_top = 340.0
@@ -35,3 +24,16 @@ offset_bottom = 398.0
 theme_override_fonts/font = ExtResource("2_25nwx")
 theme_override_font_sizes/font_size = 51
 text = "a game by The Chain Links"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 358.0
+offset_top = 458.0
+offset_right = 895.0
+offset_bottom = 549.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.811765)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 8
+theme_override_fonts/font = ExtResource("2_25nwx")
+theme_override_font_sizes/font_size = 81
+text = "Press [SPACE] to PLAY!"

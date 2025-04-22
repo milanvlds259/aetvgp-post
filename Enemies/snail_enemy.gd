@@ -138,7 +138,7 @@ func _on_player_exited(body):
 		current_state = State.IDLE
 
 func _on_attack_range_area_entered(area):
-	if area.name == "PlayerHitbox" and !dying and !being_hit:
+	if area.name == "PlayerHitbox" and !dying and !being_hit and current_state not in [State.RETREATING, State.IN_SHELL, State.STUNNED]:
 		# Only change to attack state if we can attack and aren't already attacking
 		if can_attack and current_state != State.ATTACK:
 			current_state = State.ATTACK

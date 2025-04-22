@@ -17,22 +17,20 @@ color = Color(0, 0, 0, 0.709804)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="RestartButton" type="Button" parent="CanvasLayer"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -122.0
-offset_top = 474.0
-offset_right = 115.0
-offset_bottom = 573.0
-grow_horizontal = 2
-theme_override_constants/outline_size = 5
-theme_override_constants/line_spacing = 295
-theme_override_fonts/font = ExtResource("4_x6qwg")
-theme_override_font_sizes/font_size = 81
-text = "RESTART!"
-
 [node name="YouDiedSprite" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(634, 181)
 scale = Vector2(0.298958, 0.254167)
 texture = ExtResource("4_1p5lx")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 335.0
+offset_top = 514.0
+offset_right = 948.0
+offset_bottom = 605.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.811765)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 8
+theme_override_fonts/font = ExtResource("4_x6qwg")
+theme_override_font_sizes/font_size = 81
+text = "Press [SPACE] to RESTART!"
