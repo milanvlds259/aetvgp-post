@@ -12,11 +12,12 @@ extends RigidBody2D
 @export var dash_attack_damage = 80
 @export var dash_attack_knockback = 50.0
 @export var recovery_time = 0.5
+@export var stun_time = 2.0
 
 @export var movement_speed = 50
 @export var enemy_attack_damage = 25
 
-enum State {IDLE, CHASE, ATTACK}
+enum State {IDLE, CHASE, ATTACK, RETREATING, IN_SHELL, STUNNED}
 var current_state = State.IDLE
 
 var current_health = 0
@@ -25,6 +26,10 @@ var knockback_timer = 0.0
 var dying = false
 var player = null
 var can_attack = true
+var has_shell = true
+var is_shell_breaking = false
+var combo_count = 0
+var stun_timer = 0.0
 
 signal hurt
 signal death
@@ -57,6 +62,14 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	# Handle stun state
+	if current_state == State.STUNNED:
+		stun_timer -= delta
+		if stun_timer <= 0:
+			current_state = State.IDLE
+			if player != null:
+				current_state = State.CHASE
+
 	# Handle recovery from knockback
 	if being_hit:
 		knockback_timer -= delta
@@ -68,12 +81,12 @@ func _process(delta: float) -> void:
 				current_state = State.CHASE
 			else:
 				current_state = State.IDLE
-				$AnimatedSprite2D.play("idle_shell")
+				$AnimatedSprite2D.play(get_idle_anim())
 	elif !dying:
 		match current_state:
 			State.IDLE:
-				if $AnimatedSprite2D.animation != "idle_shell":
-					$AnimatedSprite2D.play("idle_shell")
+				if $AnimatedSprite2D.animation != get_idle_anim():
+					$AnimatedSprite2D.play(get_idle_anim())
 				linear_velocity = Vector2.ZERO
 			State.CHASE:
 				# Chase the player
@@ -90,10 +103,29 @@ func _process(delta: float) -> void:
 						$AttackRange.scale.x = 1
 
 					linear_velocity = direction * movement_speed
-					$AnimatedSprite2D.play("walk_shell")
+					$AnimatedSprite2D.play(get_walk_anim())
 
 			State.ATTACK:
 				linear_velocity = Vector2.ZERO
+
+			State.RETREATING:
+				linear_velocity = Vector2.ZERO
+
+			State.IN_SHELL:
+				linear_velocity = Vector2.ZERO
+
+			State.STUNNED:
+				linear_velocity = Vector2.ZERO
+				$AnimatedSprite2D.play("stun_loop")
+
+func get_idle_anim() -> String:
+	return "idle_shell" if has_shell else "idle_noshell"
+
+func get_attack_anim() -> String:
+	return "attack_shell" if has_shell else "attack_noshell"
+
+func get_walk_anim() -> String:
+	return "walk_shell" if has_shell else "walk_noshell"
 
 func _on_player_detected(area):
 	if area.name == "PlayerHitbox" and !dying and !being_hit:
@@ -122,18 +154,32 @@ func _on_attack_cooldown_timeout():
 	can_attack = true
 
 func _on_animation_finished():
-	if $AnimatedSprite2D.animation == "attack_shell" and !dying and !being_hit:
+	var current_anim = $AnimatedSprite2D.animation
+	
+	if current_anim == get_attack_anim() and !dying and !being_hit:
 		$AttackHitbox/CollisionShape2D.disabled = true
 
-		if player != null:
+		if player != null and current_state != State.RETREATING and current_state != State.IN_SHELL and current_state != State.STUNNED:
 			current_state = State.CHASE
-			$AnimatedSprite2D.play("walk_shell")
+			$AnimatedSprite2D.play(get_walk_anim())
 		else:
 			current_state = State.IDLE
-			$AnimatedSprite2D.play("idle_shell")
+			$AnimatedSprite2D.play(get_idle_anim())
+	
+	elif current_anim == "retreat_toshell":
+		current_state = State.IN_SHELL
+		# Keep showing the last frame of retreat animation
+		$AnimatedSprite2D.pause()
+		combo_count = 0 # Reset combo counter
+	
+	elif current_anim == "shell_break":
+		has_shell = false
+		current_state = State.STUNNED
+		stun_timer = stun_time
+		$AnimatedSprite2D.play("stun_loop")
 
 func _on_frame_changed():
-	if $AnimatedSprite2D.animation == "attack_shell":
+	if $AnimatedSprite2D.animation == get_attack_anim():
 		var frame = $AnimatedSprite2D.frame
 		
 		# Handle flipping the hitbox based on direction
@@ -156,7 +202,7 @@ func attack_player():
 	can_attack = false
 	current_attack_hit = false
 	$AttackCooldown.start()
-	$AnimatedSprite2D.play("attack_shell")
+	$AnimatedSprite2D.play(get_attack_anim())
 	hit.emit()
 
 func _on_attack_hitbox_area_entered(area):
@@ -199,6 +245,34 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 			attack_type = "dash_attack"
 			knockback_force = dash_attack_knockback
 			damage = dash_attack_damage
+
+		#shell mechanic logic
+		if current_state == State.IN_SHELL:
+			# only special or dash attacks can break the shell
+			if attack_type == "special_attack" or attack_type == "dash_attack":
+				player.register_hit(attack_type)
+				is_shell_breaking = true
+				$AnimatedSprite2D.play("shell_break")
+			else:
+				# visual feedback & light knockback
+				player.register_hit(attack_type)
+				$AnimatedSprite2D.modulate = Color(1,0.5,0.5)
+				get_tree().create_timer(0.2).timeout.connect(reset_color)
+				var dir = (global_position - player.global_position).normalized()
+				linear_velocity = dir * (knockback_force * 0.3)
+				hurt.emit()
+			return
+
+		elif has_shell and current_state != State.IN_SHELL:
+			player.register_hit(attack_type)
+
+			#enter shell
+			current_state = State.RETREATING
+			$AnimatedSprite2D.play("retreat_toshell")
+			linear_velocity = Vector2.ZERO
+			$AnimatedSprite2D.modulate = Color(1.0, 0.5, 0.5)  # Red tint
+			get_tree().create_timer(0.2).timeout.connect(reset_color)
+			return
 
 		take_damage(damage)
 		

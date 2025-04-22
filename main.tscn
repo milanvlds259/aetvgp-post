@@ -149,9 +149,13 @@ position = Vector2(2730, 28)
 [node name="Snail" parent="." instance=ExtResource("21_getpj")]
 position = Vector2(1288, 76)
 max_health = 300
+special_attack_damage = 100
+recovery_time = 0.5
 
 [node name="Snail2" parent="." instance=ExtResource("21_getpj")]
 position = Vector2(1777, 60)
+special_attack_damage = 100
+recovery_time = 0.5
 
 [node name="Enemy2" parent="." instance=ExtResource("15_vivmo")]
 position = Vector2(2736, 105)
@@ -159,3 +163,5 @@ position = Vector2(2736, 105)
 [node name="Snail3" parent="." instance=ExtResource("21_getpj")]
 position = Vector2(2550, 70)
 max_health = 300
+special_attack_damage = 100
+recovery_time = 0.5
