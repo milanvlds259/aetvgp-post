@@ -1,8 +1,10 @@
-[gd_scene load_steps=30 format=3 uid="uid://bvy4kv02tvj6s"]
+[gd_scene load_steps=31 format=3 uid="uid://bvy4kv02tvj6s"]
 
 [ext_resource type="Texture2D" uid="uid://bwovm8o8s1mjq" path="res://Assets/Sprites/FinalBack.png" id="1_ryguw"]
+[ext_resource type="Script" uid="uid://nry7ow1qfs1w" path="res://next_level_trigger.gd" id="2_d13ii"]
 [ext_resource type="PackedScene" uid="uid://ctrmudo555b1x" path="res://player.tscn" id="2_gvujc"]
 [ext_resource type="PackedScene" uid="uid://cbdemu2vstyn2" path="res://Enemies/enemy.tscn" id="2_pdu3i"]
+[ext_resource type="PackedScene" uid="uid://ucmp5i8bpqgb" path="res://win_sc.tscn" id="3_1u8w0"]
 [ext_resource type="Script" uid="uid://dk058ljklcrv" path="res://audio_emitter.gd" id="4_jvx85"]
 [ext_resource type="AudioStream" uid="uid://y8fpvq58w8nm" path="res://Assets/Audio/Retro Charge Magic 11.wav" id="5_t1x6t"]
 [ext_resource type="AudioStream" uid="uid://d0c23ra0rd4we" path="res://Assets/Audio/Retro Charge StereoUP 12.wav" id="6_dct5p"]
@@ -16,12 +18,10 @@
 [ext_resource type="Script" uid="uid://b4ta7mj8hg24t" path="res://time_system.gd" id="13_w48qg"]
 [ext_resource type="Script" uid="uid://c4dy27btkcu2h" path="res://date_time.gd" id="14_vivmo"]
 [ext_resource type="AudioStream" uid="uid://ci3gshvavowoh" path="res://Assets/Audio/Retro Weapon Arrow 02.wav" id="15_074og"]
-[ext_resource type="PackedScene" uid="uid://hawdlvvcayrh" path="res://Enemies/ranged_enemy.tscn" id="15_vivmo"]
 [ext_resource type="AudioStream" uid="uid://chkmeb41ju8te" path="res://Assets/Audio/Retro Scream 01.wav" id="16_074og"]
 [ext_resource type="AudioStream" uid="uid://wegpfj70m3qm" path="res://Assets/Audio/Retro Blop StereoUP 09.wav" id="17_cegan"]
 [ext_resource type="AudioStream" uid="uid://cswrx2iwmy3r5" path="res://Assets/Audio/Retro Blop 18.wav" id="18_82xsv"]
 [ext_resource type="AudioStream" uid="uid://c08aavm0e1eym" path="res://Assets/Audio/Retro Swooosh 16.wav" id="19_ryguw"]
-[ext_resource type="PackedScene" uid="uid://b38ia2io1m3wx" path="res://Enemies/snail_enemy.tscn" id="21_getpj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_he20k"]
 size = Vector2(3208.25, 171.75)
@@ -40,6 +40,9 @@ size = Vector2(28.25, 59.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1u8w0"]
 size = Vector2(27, 64.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ryguw"]
+size = Vector2(48, 58.5)
 
 [sub_resource type="Resource" id="Resource_2cqfq"]
 script = ExtResource("14_vivmo")
@@ -60,6 +63,7 @@ position = Vector2(1286, -26)
 texture = ExtResource("1_ryguw")
 
 [node name="WallCollisions" type="StaticBody2D" parent="Background"]
+visible = false
 position = Vector2(-197, 70)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/WallCollisions"]
@@ -126,6 +130,15 @@ shape = SubResource("RectangleShape2D_1u8w0")
 position = Vector2(459.5, 35.5)
 shape = SubResource("RectangleShape2D_1u8w0")
 
+[node name="NextLevlTrigger" type="Area2D" parent="Background"]
+script = ExtResource("2_d13ii")
+next_scene_path = ExtResource("3_1u8w0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/NextLevlTrigger"]
+position = Vector2(2865, -37)
+shape = SubResource("RectangleShape2D_ryguw")
+debug_color = Color(0.450567, 0.596045, 5.77569e-07, 0.42)
+
 [node name="Player" parent="." instance=ExtResource("2_gvujc")]
 position = Vector2(-267, 85)
 combo_timeout = 1.0
@@ -135,40 +148,6 @@ position = Vector2(2329, 44)
 
 [node name="Enemy4" parent="Enemies" instance=ExtResource("2_pdu3i")]
 position = Vector2(-2158, 29)
-
-[node name="Enemy7" parent="Enemies" instance=ExtResource("2_pdu3i")]
-position = Vector2(-831, -49)
-
-[node name="Enemy8" parent="Enemies" instance=ExtResource("2_pdu3i")]
-position = Vector2(-822, 50)
-
-[node name="Enemy" parent="Enemies" instance=ExtResource("15_vivmo")]
-position = Vector2(-1742, 5)
-
-[node name="Enemy3" parent="Enemies" instance=ExtResource("15_vivmo")]
-position = Vector2(528, 1)
-
-[node name="Snail" parent="Enemies" instance=ExtResource("21_getpj")]
-position = Vector2(-1186, 4)
-max_health = 300
-
-[node name="Enemy2" parent="Enemies" instance=ExtResource("15_vivmo")]
-position = Vector2(-286, -6)
-
-[node name="Snail3" parent="Enemies" instance=ExtResource("21_getpj")]
-position = Vector2(-418, 5)
-max_health = 300
-
-[node name="Snail2" parent="Enemies" instance=ExtResource("21_getpj")]
-position = Vector2(432, -38)
-
-[node name="Snail4" parent="Enemies" instance=ExtResource("21_getpj")]
-position = Vector2(439, 52)
-
-[node name="Enemy5" parent="Enemies" instance=ExtResource("2_pdu3i")]
-position = Vector2(291, -7)
-
-[node name="Snail5" parent="Enemies" instance=ExtResource("21_getpj")]
 
 [node name="AudioEmitter" type="Node" parent="."]
 script = ExtResource("4_jvx85")

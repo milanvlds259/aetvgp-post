@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://ctrmudo555b1x"]
+[gd_scene load_steps=72 format=3 uid="uid://ctrmudo555b1x"]
 
 [ext_resource type="Script" uid="uid://2e6jj5wi7duj" path="res://Scripts/player.gd" id="1_xe545"]
 [ext_resource type="Texture2D" uid="uid://dj8sf82cs1pba" path="res://Assets/Sprites/AryanAnims/AryanIdleAnimV3.png" id="2_5a4i6"]
@@ -429,6 +429,10 @@ bg_color = Color(0, 0.827451, 0.2, 1)
 radius = 14.0
 height = 52.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5tmop"]
+atlas = ExtResource("8_sdh3v")
+region = Rect2(322.916, 169.832, 15.1572, 16.1171)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_xe545")
 speed = 150
@@ -646,5 +650,24 @@ metadata/_edit_use_anchors_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
 position = Vector2(-1, -11)
 shape = SubResource("CapsuleShape2D_nvl01")
+
+[node name="ContinuePrompt" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-33, -63)
+scale = Vector2(1.5, 1.5)
+texture = SubResource("AtlasTexture_5tmop")
+
+[node name="Label" type="Label" parent="ContinuePrompt"]
+offset_left = 13.3333
+offset_top = -8.66667
+offset_right = 224.333
+offset_bottom = 91.3333
+scale = Vector2(0.25, 0.25)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 9
+theme_override_fonts/font = ExtResource("10_wbsmy")
+theme_override_font_sizes/font_size = 89
+text = "Enter..."
+metadata/_edit_use_anchors_ = true
 
 [connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]

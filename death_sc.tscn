@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dgx1tv84mfydc"]
 
 [ext_resource type="PackedScene" uid="uid://bvy4kv02tvj6s" path="res://main.tscn" id="2_0b8ka"]
-[ext_resource type="Texture2D" uid="uid://bkxbkfpkdkm6u" path="res://Assets/Sprites/New_Piskel-1.png_5.png" id="4_1p5lx"]
+[ext_resource type="Texture2D" uid="uid://cr1ewpw4766fq" path="res://Assets/Sprites/uloseman.png" id="3_1p5lx"]
 [ext_resource type="FontFile" uid="uid://bfgsw1ulhlbu0" path="res://Assets/Silver.ttf" id="4_x6qwg"]
 [ext_resource type="Script" uid="uid://c56ct6npvgppl" path="res://death_screen.gd" id="5_0b8ka"]
 
@@ -13,14 +13,14 @@ main_scene = ExtResource("2_0b8ka")
 offset_left = -1.0
 offset_right = 1286.0
 offset_bottom = 722.0
-color = Color(0, 0, 0, 0.709804)
+color = Color(0, 0, 0, 0.462745)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="YouDiedSprite" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(634, 181)
-scale = Vector2(0.298958, 0.254167)
-texture = ExtResource("4_1p5lx")
+position = Vector2(667, 202)
+scale = Vector2(0.29401, 0.259896)
+texture = ExtResource("3_1p5lx")
 
 [node name="Label2" type="Label" parent="."]
 offset_left = 335.0
