@@ -13,6 +13,7 @@ func _ready():
 	title_tween.tween_property($CanvasLayer/PostTitle, "scale", $CanvasLayer/PostTitle.scale, 1.0)
 	title_tween.set_loops()
 
+#start game when space key is pressed
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed():
 		if event.keycode == KEY_SPACE:

@@ -1,11 +1,14 @@
 extends CharacterBody2D
 
 @export var speed = 200
+@export var dash_speed = 400
+@export var dash_duration = 0.4
 @export var max_hp = 100
 @export var meter = 10
 @export var recovery_time = 0.2  # Time for knockback recovery
 @export var knockback_force = 50  # Force of knockback when hit
 @export var invincibility_time = 0.2  # Time during which the player is invincible after being hit
+@export var enemy_collision_layer = 1
 
 var hp: int
 var attacking: bool = false
@@ -13,6 +16,11 @@ var canAttack: bool = true
 var being_hit = false  # Track if player is currently in hit recovery
 var knockback_timer = 0.0  # Timer for knockback recovery
 var invincible = false  # Track if player is invincible after being hit
+
+var is_dashing = false
+var dash_timer = 0.0
+var dash_direction = Vector2.ZERO
+var _saved_collision_mask : int
 
 
 signal light_atk
@@ -86,6 +94,37 @@ func _on_player_hitbox_body_entered(body):
 			body.queue_free()
 
 func _physics_process(delta):
+	# — DASH START —
+	if not attacking and not being_hit and Input.is_action_just_pressed("dash") and not is_dashing:
+		is_dashing = true
+		dash_timer = dash_duration
+		# pick a direction: current velocity or facing
+		if velocity.length() > 0:
+			dash_direction = velocity.normalized()
+		else:
+			dash_direction = Vector2(-1, 0) if $AnimatedSprite2D.flip_h else Vector2(1, 0)
+		$AnimatedSprite2D.play("dash")                     
+		$PlayerHitbox/CollisionShape2D.disabled = true      # immune to damage during dash
+		_saved_collision_mask = collision_mask
+
+		# v look at this line dawg im so cooked what is this
+		collision_mask &= ~(1 << (enemy_collision_layer - 1))
+		# ^ this is the most insane line of code i have ever written
+
+	# — DASH IN PROGRESS —
+	if is_dashing:
+		dash_timer -= delta
+		# linearly falloff
+		var t = dash_timer / dash_duration
+		velocity = dash_direction * dash_speed * t
+		move_and_slide()
+		if dash_timer <= 0:
+			is_dashing = false
+			collision_mask = _saved_collision_mask
+			$PlayerHitbox/CollisionShape2D.disabled = false
+			$AnimatedSprite2D.play("idle")
+		return   # skip the rest of our movement & attack logic
+
 	# Handle knockback recovery
 	if being_hit:
 		knockback_timer -= delta
