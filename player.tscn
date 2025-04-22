@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://ctrmudo555b1x"]
+[gd_scene load_steps=71 format=3 uid="uid://ctrmudo555b1x"]
 
 [ext_resource type="Script" uid="uid://2e6jj5wi7duj" path="res://Scripts/player.gd" id="1_xe545"]
 [ext_resource type="Texture2D" uid="uid://dj8sf82cs1pba" path="res://Assets/Sprites/AryanAnims/AryanIdleAnimV3.png" id="2_5a4i6"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b7b2hx6fjrg3o" path="res://Assets/Sprites/AryanAnims/AryanWalkAnimV2.png" id="5_2xnsg"]
 [ext_resource type="Texture2D" uid="uid://ctpe0paaetqpj" path="res://Assets/Sprites/AryanAnims/AryanSuperHeavyShowV1-Sheet.png" id="7_dxjrj"]
 [ext_resource type="Texture2D" uid="uid://d07m8uan0yllh" path="res://Assets/Sprites/tilemap.png" id="8_sdh3v"]
+[ext_resource type="Script" uid="uid://bj3erruqdfrd2" path="res://camera_shake.gd" id="10_ivps1"]
 [ext_resource type="FontFile" uid="uid://bfgsw1ulhlbu0" path="res://Assets/Silver.ttf" id="10_wbsmy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ivps1"]
@@ -449,6 +450,8 @@ position = Vector2(0, -14)
 offset = Vector2(96, -72)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
+script = ExtResource("10_ivps1")
+target = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708

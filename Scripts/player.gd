@@ -21,6 +21,8 @@ signal heavy_atk
 signal special_atk
 signal special_atk2
 signal dash_atk
+signal meter_up
+signal meter_full
 
 # Combo system variables
 @export var combo_timeout = 2.0  # Time window to land the next hit in seconds
@@ -150,6 +152,8 @@ func _physics_process(delta):
 		if meter_increase <= 0:
 			if meter < progress_meter.max_value:
 				meter += 1
+				if meter == progress_meter.max_value:
+					meter_full.emit()
 			progress_meter.value = meter
 			meter_increase = 1.0
 		velocity = input_vector * speed
@@ -179,6 +183,8 @@ func take_damage(damage: int, attacker_position = null):
 		
 		# Create a timer to reset color if knockback lasts too long
 		get_tree().create_timer(0.2).timeout.connect(reset_color)
+		
+		time_stop(0.7, 1.0)
 	
 	if hp <= 0:
 		die()
@@ -398,13 +404,35 @@ func register_hit(attack_type):
 	last_hit_time = current_time
 	# Called from enemy.gd when a hit is successfully landed
 	on_successful_hit(attack_type)
+	if attack_type == "light_attack":
+		time_stop(0.9, 1.0)
+	if attack_type == "medium_attack":
+		time_stop(0.8, 1.0)
+	if attack_type == "heavy_attack":
+		time_stop(0.6, 1.0)
 	if attack_type in ["special_attack", "dash_attack"]:
 		# Restore special meter for successful hits
 		restore_meter(special_meter_restore)
+		if attack_type == "special_attack":
+			time_stop(0.3, 1.0)
+		if attack_type == "dash_attack":
+			time_stop(0.7, 1.0)
+		$Camera2D.add_trauma(0.2)
+		await get_tree().create_timer(0.2).timeout
+		$Camera2D.add_trauma(0.0)
+		
 
 func restore_meter(amount: int):
 	meter += amount
 	if meter > progress_meter.max_value:
 		meter = progress_meter.max_value
+		meter_full.emit()
+	else:
+		meter_up.emit()
 	progress_meter.value = meter
 	print("Meter restored by: ", amount)
+
+func time_stop(scale_value, duration):
+	Engine.time_scale = scale_value
+	await get_tree().create_timer(duration * scale_value).timeout
+	Engine.time_scale = 1.0
