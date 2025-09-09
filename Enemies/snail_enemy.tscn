@@ -17,8 +17,8 @@ radius = 14.9999
 height = 42.0053
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ax4b"]
-radius = 11.0
-height = 41.9967
+radius = 9.99999
+height = 36.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m8ido"]
 particles_animation = true
@@ -664,7 +664,7 @@ debug_color = Color(0, 0.612658, 0.620226, 0.42)
 position = Vector2(0, 4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, 3)
+position = Vector2(-4.65661e-10, 4)
 rotation = 1.57241
 shape = SubResource("CapsuleShape2D_8ax4b")
 debug_color = Color(0.969152, 0.176741, 0, 0.42)

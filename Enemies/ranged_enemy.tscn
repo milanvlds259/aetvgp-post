@@ -315,6 +315,7 @@ medium_attack_knockback = 60.0
 heavy_attack_knockback = 100.0
 movement_speed = 25
 run_away_speed = 40
+projectile_damage = 10
 
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.321569)

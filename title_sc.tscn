@@ -1,14 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://u267egaoynks"]
+[gd_scene load_steps=7 format=3 uid="uid://u267egaoynks"]
 
 [ext_resource type="Texture2D" uid="uid://boqw0thb3aiu1" path="res://Assets/Sprites/POST_Title.png" id="1_2jdfu"]
-[ext_resource type="Script" uid="uid://b6rcb512s3xfs" path="res://title_screen.gd" id="1_25nwx"]
+[ext_resource type="Script" uid="uid://b6rcb512s3xfs" path="res://Scripts/title_screen.gd" id="1_25nwx"]
 [ext_resource type="PackedScene" uid="uid://bvy4kv02tvj6s" path="res://main.tscn" id="2_5h8wq"]
 [ext_resource type="FontFile" uid="uid://bfgsw1ulhlbu0" path="res://Assets/Silver.ttf" id="2_25nwx"]
 [ext_resource type="AudioStream" uid="uid://dle38kvbhsodg" path="res://Assets/Audio/BGM Options/270366__foolboymedia__dramatic-scroller.wav" id="5_d2s5b"]
+[ext_resource type="Texture2D" uid="uid://bucfpcnfukyrw" path="res://Assets/Sprites/titleback.png" id="6_lompc"]
 
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource("1_25nwx")
 main_scene = ExtResource("2_5h8wq")
+pan_distance = 2500
+pan_duration = 30
+
+[node name="Titleback" type="Sprite2D" parent="."]
+modulate = Color(0.298039, 0.521569, 0.52549, 0.254902)
+position = Vector2(-1948, 368)
+scale = Vector2(2.01529, 2.04628)
+texture = ExtResource("6_lompc")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -42,5 +51,5 @@ text = "Press [SPACE] to PLAY!"
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(358, 458)
 stream = ExtResource("5_d2s5b")
-volume_db = -5.157
+volume_db = 0.86
 autoplay = true

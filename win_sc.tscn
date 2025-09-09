@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ucmp5i8bpqgb"]
 
-[ext_resource type="Script" uid="uid://coe4624rlyt1o" path="res://win_sc.gd" id="1_pds6s"]
+[ext_resource type="Script" uid="uid://coe4624rlyt1o" path="res://Scripts/win_sc.gd" id="1_pds6s"]
 [ext_resource type="Texture2D" uid="uid://dj2ddhmxg4txw" path="res://Assets/Sprites/uwin.png" id="4_7e8rh"]
 [ext_resource type="FontFile" uid="uid://bfgsw1ulhlbu0" path="res://Assets/Silver.ttf" id="4_kt6am"]
 

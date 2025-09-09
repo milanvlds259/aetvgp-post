@@ -1,11 +1,11 @@
 [gd_scene load_steps=34 format=3 uid="uid://bvy4kv02tvj6s"]
 
 [ext_resource type="Texture2D" uid="uid://bwovm8o8s1mjq" path="res://Assets/Sprites/FinalBack.png" id="1_ryguw"]
-[ext_resource type="Script" uid="uid://nry7ow1qfs1w" path="res://next_level_trigger.gd" id="2_d13ii"]
+[ext_resource type="Script" uid="uid://nry7ow1qfs1w" path="res://Scripts/next_level_trigger.gd" id="2_d13ii"]
 [ext_resource type="PackedScene" uid="uid://ctrmudo555b1x" path="res://player.tscn" id="2_gvujc"]
 [ext_resource type="PackedScene" uid="uid://cbdemu2vstyn2" path="res://Enemies/enemy.tscn" id="2_pdu3i"]
 [ext_resource type="PackedScene" uid="uid://ucmp5i8bpqgb" path="res://win_sc.tscn" id="3_1u8w0"]
-[ext_resource type="Script" uid="uid://dk058ljklcrv" path="res://audio_emitter.gd" id="4_jvx85"]
+[ext_resource type="Script" uid="uid://dk058ljklcrv" path="res://Scripts/audio_emitter.gd" id="4_jvx85"]
 [ext_resource type="AudioStream" uid="uid://y8fpvq58w8nm" path="res://Assets/Audio/Retro Charge Magic 11.wav" id="5_t1x6t"]
 [ext_resource type="AudioStream" uid="uid://d0c23ra0rd4we" path="res://Assets/Audio/Retro Charge StereoUP 12.wav" id="6_dct5p"]
 [ext_resource type="AudioStream" uid="uid://3bfmw6gah7eq" path="res://Assets/Audio/Retro Explosion Short 01.wav" id="7_l3dg7"]
@@ -15,8 +15,8 @@
 [ext_resource type="AudioStream" uid="uid://d3bta5s0g1aux" path="res://Assets/Audio/Retro Swooosh 02.wav" id="10_at0nl"]
 [ext_resource type="AudioStream" uid="uid://dueikwcy877tf" path="res://Assets/Audio/Retro Swooosh 07.wav" id="11_l6rj8"]
 [ext_resource type="AudioStream" uid="uid://b5k2xbcifruxr" path="res://Assets/Audio/Retro Magic 54.wav" id="12_hhyrp"]
-[ext_resource type="Script" uid="uid://b4ta7mj8hg24t" path="res://time_system.gd" id="13_w48qg"]
-[ext_resource type="Script" uid="uid://c4dy27btkcu2h" path="res://date_time.gd" id="14_vivmo"]
+[ext_resource type="Script" uid="uid://b4ta7mj8hg24t" path="res://Scripts/time_system.gd" id="13_w48qg"]
+[ext_resource type="Script" uid="uid://c4dy27btkcu2h" path="res://Scripts/date_time.gd" id="14_vivmo"]
 [ext_resource type="AudioStream" uid="uid://ci3gshvavowoh" path="res://Assets/Audio/Retro Weapon Arrow 02.wav" id="15_074og"]
 [ext_resource type="PackedScene" uid="uid://hawdlvvcayrh" path="res://Enemies/ranged_enemy.tscn" id="15_vivmo"]
 [ext_resource type="AudioStream" uid="uid://chkmeb41ju8te" path="res://Assets/Audio/Retro Scream 01.wav" id="16_074og"]
@@ -143,10 +143,6 @@ position = Vector2(2865, -37)
 shape = SubResource("RectangleShape2D_ryguw")
 debug_color = Color(0.450567, 0.596045, 5.77569e-07, 0.42)
 
-[node name="Player" parent="." instance=ExtResource("2_gvujc")]
-position = Vector2(-267, 85)
-combo_timeout = 1.0
-
 [node name="Enemies" type="Node2D" parent="."]
 position = Vector2(2329, 44)
 
@@ -202,7 +198,7 @@ volume_db = -5.0
 
 [node name="DashAtk" type="AudioStreamPlayer" parent="AudioEmitter"]
 stream = ExtResource("19_ryguw")
-volume_db = 24.0
+volume_db = 10.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -215,7 +211,7 @@ ticks_pr_sec = 60
 
 [node name="BGM" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("23_d13ii")
-volume_db = -10.0
+volume_db = -8.362
 autoplay = true
 max_distance = 4096.0
 attenuation = 1e-05
@@ -249,10 +245,7 @@ position = Vector2(2082, 39)
 position = Vector2(2357, -16)
 
 [node name="Enemy6" parent="." instance=ExtResource("2_pdu3i")]
-position = Vector2(2356, 33)
-
-[node name="Enemy7" parent="." instance=ExtResource("2_pdu3i")]
-position = Vector2(2355, 85)
+position = Vector2(2356, 87)
 
 [node name="Snail3" parent="." instance=ExtResource("21_getpj")]
 position = Vector2(2699, 34)
@@ -262,3 +255,6 @@ position = Vector2(2621, 39)
 
 [node name="RangedEnemy3" parent="." instance=ExtResource("15_vivmo")]
 position = Vector2(2840, 30)
+
+[node name="Player" parent="." instance=ExtResource("2_gvujc")]
+position = Vector2(-254, 57)

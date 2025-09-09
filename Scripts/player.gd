@@ -66,6 +66,8 @@ func _ready():
 	$PlayerHitbox.area_entered.connect(_on_player_hitbox_area_entered)
 	$PlayerHitbox.body_entered.connect(_on_player_hitbox_body_entered)
 
+	Engine.time_scale = 1.0
+
 # Handle attacks from enemy areas
 func _on_player_hitbox_area_entered(area):
 	# Only process if the area is an attack hitbox from enemies
@@ -95,21 +97,27 @@ func _on_player_hitbox_body_entered(body):
 
 func _physics_process(delta):
 	# — DASH START —
-	if not attacking and not being_hit and Input.is_action_just_pressed("dash") and not is_dashing:
+	if not attacking and not being_hit and Input.is_action_just_pressed("dash") and not is_dashing and meter >= 2:
 		is_dashing = true
+		meter -= 2
+		progress_meter.value = meter
 		dash_timer = dash_duration
 		# pick a direction: current velocity or facing
 		if velocity.length() > 0:
 			dash_direction = velocity.normalized()
 		else:
 			dash_direction = Vector2(-1, 0) if $AnimatedSprite2D.flip_h else Vector2(1, 0)
-		$AnimatedSprite2D.play("dash")                     
-		$PlayerHitbox/CollisionShape2D.disabled = true      # immune to damage during dash
+		$AnimatedSprite2D.play("dash")
+		dash_atk.emit()                     
+		$PlayerHitbox/CollisionShape2D.disabled = true # immune to damage during dash
 		_saved_collision_mask = collision_mask
 
+		# This makes the player phase through enemies during the dash
+		# by removing the enemy collision layer from the player's collision mask
 		# v look at this line dawg im so cooked what is this
 		collision_mask &= ~(1 << (enemy_collision_layer - 1))
 		# ^ this is the most insane line of code i have ever written
+		#LGTM!
 
 	# — DASH IN PROGRESS —
 	if is_dashing:

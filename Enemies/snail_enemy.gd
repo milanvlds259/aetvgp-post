@@ -205,11 +205,13 @@ func attack_player():
 	$AnimatedSprite2D.play(get_attack_anim())
 	hit.emit()
 
+
 func _on_attack_hitbox_area_entered(area):
-	if area.name == "PlayerHitbox":
-		player = area.get_parent()
-		player.take_damage(enemy_attack_damage, global_position)
-		current_attack_hit = true  # Mark this attack as having hit
+	pass
+	#if area.name == "PlayerHitbox":
+		#player = area.get_parent()
+		#player.take_damage(enemy_attack_damage, global_position)
+		#current_attack_hit = true  # Mark this attack as having hit
 		# No need to temporarily disable the hitbox, we're tracking hits instead
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
